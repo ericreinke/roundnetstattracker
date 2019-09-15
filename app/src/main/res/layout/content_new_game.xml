@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".NewGameActivity"
+    tools:showIn="@layout/activity_new_game">
+
+    <EditText
+        android:id="@+id/pB2TextView"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Team B Player 2"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/pB1TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pA1TextView" />
+
+    <EditText
+        android:id="@+id/pB1TextView"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Team B Player 1"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamAPlainText"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <EditText
+        android:id="@+id/pA2TextView"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="Team A Player 2"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/pB1TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pA1TextView" />
+
+    <TextView
+        android:id="@+id/newGameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="New Game"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="New Game" />
+
+    <EditText
+        android:id="@+id/teamAPlainText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Team A"
+        android:inputType="textPersonName"
+        android:singleLine="false"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/newGameTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newGameToolTipTextView" />
+
+    <EditText
+        android:id="@+id/teamBPlainText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Team B"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/newGameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/newGameToolTipTextView" />
+
+    <EditText
+        android:id="@+id/pA1TextView"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Team A Player 1"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamAPlainText"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <Button
+        android:id="@+id/finishSetupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/newGameToolTipTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/newGameToolTip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newGameTextView" />
+
+    <ImageView
+        android:id="@+id/netImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/pB1TextView"
+        app:layout_constraintEnd_toStartOf="@+id/pB2TextView"
+        app:layout_constraintStart_toEndOf="@+id/pA2TextView"
+        app:layout_constraintTop_toBottomOf="@+id/pA1TextView"
+        app:srcCompat="@drawable/roundnetoverhead" />
+
+    <TextView
+        android:id="@+id/vsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vs"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/teamAPlainText"
+        app:layout_constraintEnd_toStartOf="@+id/teamBPlainText"
+        app:layout_constraintStart_toEndOf="@+id/teamAPlainText" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,7 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ViewGamesActivity"
+            android:label="@string/title_activity_view_games"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RecordGameActivity"
+            android:label="@string/title_activity_record_game"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NewGameActivity"
+            android:label="@string/title_activity_new_game"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GameDetails" />
+        <activity
+            android:name=".HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

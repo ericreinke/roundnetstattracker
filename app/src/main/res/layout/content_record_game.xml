@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".RecordGameActivity"
+    tools:showIn="@layout/activity_record_game">
+
+    <TextView
+        android:id="@+id/recordGameTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/recordGameHeader"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/recordGameHeader" />
+
+    <TextView
+        android:id="@+id/recordTeamATextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/place_holder"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toStartOf="@+id/vsTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamAScoreTextView" />
+
+    <TextView
+        android:id="@+id/recordTeamBTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/place_holder"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/teamBScoreTextView" />
+
+    <TextView
+        android:id="@+id/vsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vs"
+        app:layout_constraintBottom_toBottomOf="@+id/recordTeamATextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/recordPA1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/recordTeamATextView"
+        app:layout_constraintStart_toStartOf="@+id/recordTeamATextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordTeamATextView" />
+
+    <TextView
+        android:id="@+id/recordPB1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/recordTeamBTextView"
+        app:layout_constraintStart_toStartOf="@+id/recordTeamBTextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordTeamBTextView" />
+
+    <TextView
+        android:id="@+id/recordPA2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/recordTeamATextView"
+        app:layout_constraintStart_toStartOf="@+id/recordTeamATextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordPA1TextView" />
+
+    <TextView
+        android:id="@+id/recordPB2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/recordTeamBTextView"
+        app:layout_constraintStart_toStartOf="@+id/recordTeamBTextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordPB1TextView" />
+
+    <Button
+        android:id="@+id/teamAButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/place_holder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recordTeamATextView"
+        app:layout_constraintStart_toStartOf="@+id/recordTeamATextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordPA2TextView" />
+
+    <Button
+        android:id="@+id/teamBButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/place_holder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/recordTeamBTextView"
+        app:layout_constraintStart_toStartOf="@+id/recordTeamBTextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordPB2TextView" />
+
+    <TextView
+        android:id="@+id/teamAScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/place_holder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toStartOf="@+id/vsTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordGameTitleTextView" />
+
+    <TextView
+        android:id="@+id/teamBScoreTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/place_holder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/recordGameTitleTextView" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/instructionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/place_holder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recordPA2TextView"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <Button
+        android:id="@+id/teamAButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/teamAButton1"
+        app:layout_constraintStart_toStartOf="@+id/teamAButton1"
+        app:layout_constraintTop_toBottomOf="@+id/teamAButton1" />
+
+    <Button
+        android:id="@+id/teamBButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/place_holder"
+        app:layout_constraintEnd_toEndOf="@+id/teamBButton1"
+        app:layout_constraintStart_toStartOf="@+id/teamBButton1"
+        app:layout_constraintTop_toBottomOf="@+id/teamBButton1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
