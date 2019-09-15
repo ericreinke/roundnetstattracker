@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NewGameActivity"
     tools:showIn="@layout/activity_new_game">
 
     <EditText
+        android:textColorHint="@color/text_hint"
         android:id="@+id/pB2TextView"
+        android:textColor="@color/text"
+        android:backgroundTint="@color/text"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -22,7 +26,10 @@
         app:layout_constraintTop_toBottomOf="@+id/pA1TextView" />
 
     <EditText
+        android:textColorHint="@color/text_hint"
         android:id="@+id/pB1TextView"
+        android:backgroundTint="@color/text"
+        android:textColor="@color/text"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -37,6 +44,9 @@
 
     <EditText
         android:id="@+id/pA2TextView"
+        android:textColorHint="@color/text_hint"
+        android:textColor="@color/text"
+        android:backgroundTint="@color/text"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,6 +60,7 @@
 
     <TextView
         android:id="@+id/newGameTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -63,6 +74,9 @@
 
     <EditText
         android:id="@+id/teamAPlainText"
+        android:textColorHint="@color/text_hint"
+        android:textColor="@color/text"
+        android:backgroundTint="@color/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -78,6 +92,9 @@
 
     <EditText
         android:id="@+id/teamBPlainText"
+        android:textColor="@color/text"
+        android:textColorHint="@color/text_hint"
+        android:backgroundTint="@color/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -92,6 +109,9 @@
 
     <EditText
         android:id="@+id/pA1TextView"
+        android:textColorHint="@color/text_hint"
+        android:backgroundTint="@color/text"
+        android:textColor="@color/text"
         android:layout_width="150sp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -116,6 +136,7 @@
 
     <TextView
         android:id="@+id/newGameToolTipTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -140,6 +161,7 @@
 
     <TextView
         android:id="@+id/vsTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vs"

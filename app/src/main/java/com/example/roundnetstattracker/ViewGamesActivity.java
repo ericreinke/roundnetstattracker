@@ -8,6 +8,8 @@ import com.google.gson.JsonParser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -56,6 +58,12 @@ public class ViewGamesActivity extends AppCompatActivity {
                     + " vs " + arr.get(i).getAsJsonObject().get("teamB").getAsJsonObject().get("score"));
             System.out.println("ID is: " + arr.get(i).getAsJsonObject().get("id"));
         }
+
+        RecyclerView recyclerView = findViewById(R.id.gameRecyclerView);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, arr);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
 
 

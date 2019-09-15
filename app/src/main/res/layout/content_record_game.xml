@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".RecordGameActivity"
+    android:background="@color/background"
     tools:showIn="@layout/activity_record_game">
 
     <TextView
         android:id="@+id/recordGameTitleTextView"
+        android:textColor="@color/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -26,6 +28,7 @@
 
     <TextView
         android:id="@+id/recordTeamATextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -38,6 +41,7 @@
 
     <TextView
         android:id="@+id/recordTeamBTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -50,6 +54,7 @@
 
     <TextView
         android:id="@+id/vsTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vs"
@@ -59,6 +64,7 @@
 
     <TextView
         android:id="@+id/recordPA1TextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -69,6 +75,7 @@
 
     <TextView
         android:id="@+id/recordPB1TextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -79,6 +86,7 @@
 
     <TextView
         android:id="@+id/recordPA2TextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -89,6 +97,7 @@
 
     <TextView
         android:id="@+id/recordPB2TextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -119,6 +128,7 @@
 
     <TextView
         android:id="@+id/teamAScoreTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -130,6 +140,7 @@
 
     <TextView
         android:id="@+id/teamBScoreTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -151,9 +162,11 @@
 
     <TextView
         android:id="@+id/instructionTextView"
+        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/place_holder"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
