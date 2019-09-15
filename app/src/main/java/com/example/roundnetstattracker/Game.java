@@ -12,16 +12,13 @@ public class Game implements Parcelable{
     Team teamA;
     Team teamB;
     private String id;
-    private int serve1;
-    private int serve2;
-    private List<String> rallies;
+    private ArrayList<String> rallies = new ArrayList<>();
 
     public Game(String _id){
         teamA = new Team("teamA");
         teamB = new Team("teamB");
         id = _id;
-        serve1=-1;
-        serve2=-1;
+
 
     }
 
@@ -29,16 +26,12 @@ public class Game implements Parcelable{
         teamA = parcel.readParcelable(Team.class.getClassLoader());
         teamB = parcel.readParcelable(Team.class.getClassLoader());
         id = parcel.readString();
-        serve1 = parcel.readInt();
-        serve2 = parcel.readInt();
         //TODO: parcel read and write List
 
     }
-
-    public void setServe1(int i){ this.serve1 = i; }
-    public int getServe1(){ return this.serve1; }
-    public void setServe2(int i){ this.serve2 = i; }
-    public int getServe2(){ return this.serve2; }
+    public void addRally(String rally){
+        rallies.add(rally);
+    }
 
     @Override
     public int describeContents() {
@@ -50,8 +43,6 @@ public class Game implements Parcelable{
         parcel.writeParcelable(teamA,0);
         parcel.writeParcelable(teamB,0);
         parcel.writeString(id);
-        parcel.writeInt(serve1);
-        parcel.writeInt(serve2);
     }
 
     public static final Parcelable.Creator<Game> CREATOR=

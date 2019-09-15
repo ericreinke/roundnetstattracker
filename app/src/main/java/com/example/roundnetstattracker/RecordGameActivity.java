@@ -38,14 +38,16 @@ public class RecordGameActivity extends AppCompatActivity {
     String [] playerNames = new String[4];
     String [] teamNames = new String[2];
     int [] firstServers = new int[2]; //index is the team, value is player
+    boolean [] whoServed = new boolean[4];
+    int nextServerTeam1 = -1;
+    int nextServerTeam2 = -1;
     Game myGame = null;
-    int currentServer = -1;
     int teamPossession = -1; //0 or 1;
     int serveAttempt = 1; //1 or 2;
     StringBuilder rallyBuilder = new StringBuilder();
 
     /*  0: determine server1
-     *   1: determine server2
+     *   1: determine server2  //THIS MIGHT BE DEPRECATED
      *   2: "player is now serving" waiting for serve result
      *   3: waiting for touches
      *   4: ask for putaway/error
@@ -84,6 +86,10 @@ public class RecordGameActivity extends AppCompatActivity {
         teamNames[1] = myGame.teamB.getName();
         firstServers[0] =- 1;
         firstServers[1] = -1;
+        whoServed[0] = false;
+        whoServed[1] = false;
+        whoServed[2] = false;
+        whoServed[3] = false;
 
         teamATextView.setText(myGame.teamA.getName());
         teamBTextView.setText(myGame.teamB.getName());
@@ -100,7 +106,7 @@ public class RecordGameActivity extends AppCompatActivity {
         teamBButton1.setText(playerNames[2]);
         teamBButton2.setText(playerNames[3]);
 
-        state  = 0;
+        state  = 2;
 
         askForServer();
 
@@ -109,19 +115,12 @@ public class RecordGameActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 switch(state){
-                    case(0): //determine server1 ; playerA1 button
+                    case(0): //determine server ; playerA1 button
                         firstServers[0] = 0;
-                        currentServer = 0;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("0");
-                        setupStateServing(0);
-                        break;
-                    case(1): //determine server2 ; playerA1 button
-                        firstServers[0] = 0;
-                        setupStateServing(0);
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("0");
-                        setupStateServing(0);
+                        teamPossession=0;
+                        isServing(0);
+                        nextServerTeam1 = 1;
+                        setupStateServing();
                         break;
                     case(2): //serving state ; clean button
                         teamPossession ^= 1; //change possession first
@@ -140,6 +139,10 @@ public class RecordGameActivity extends AppCompatActivity {
 //                        }
 //                        int spiker = Integer.parseInt( rallyBuilder.charAt(rallyBuilder.lastIndexOf(lookingFor)-1) + "");
                         rallyBuilder.append("P");
+                        myGame.addRally(rallyBuilder+"");
+                        rallyBuilder.delete(0,rallyBuilder.length());
+                        serveAttempt = 1;
+                        setupStateServing();
                 }
                 System.out.println(rallyBuilder);
             }
@@ -149,18 +152,11 @@ public class RecordGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 switch(state){
                     case(0): //determine server1 ; playerA1 button
+                        isServing(1);
+                        nextServerTeam1 = 0;
+                        teamPossession = 0;
                         firstServers[0] = 1;
-                        currentServer = 1;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("1");
-                        setupStateServing(1);
-                        break;
-                    case(1): //determine server2 ; playerA2 button
-                        firstServers[0] = 1;
-                        currentServer = 1;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("1");
-                        setupStateServing(1);
+                        setupStateServing();
                         break;
                     case(2):
                         //This case should never happen because tAB2 is GONE in state 2
@@ -179,49 +175,59 @@ public class RecordGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 switch(state){
                     case(0): //determine server1 ; playerA1 button
-                        myGame.setServe1(2);
-                        currentServer = 2;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("2");
-                        setupStateServing(2);
-                        break;
-                    case(1): //determine server2 ; playerA2 button
-                        myGame.setServe2(2);
-                        currentServer = 2;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("2");
-                        setupStateServing(2);
+                        isServing(2);
+                        nextServerTeam2 = 3;
+                        teamPossession = 1;
+                        firstServers[1] = 2;
+                        setupStateServing();
                         break;
                     case(2):// service fault button
                         if(serveAttempt == 1){
                             rallyBuilder.append("F");
                             serveAttempt = 2;
-                            setupStateServing(currentServer);
+                            setupStateServing();
                         }
                         else if(serveAttempt == 2){
                             rallyBuilder.append("f");
+                            System.out.println(teamPossession);
                             if(teamPossession == 0){
                                 myGame.teamB.addScore(1);
+                                teamBScoreTextView.setText(Integer.toString(myGame.teamB.getScore()));
+                                if((whoServed[0] || whoServed[1]) && nextServerTeam2 != -1){ //new server
+                                    isServing(nextServerTeam2);
+                                    nextServerTeam2 -= 2;  // this will flip the sever
+                                    nextServerTeam2 ^= 1;
+                                    nextServerTeam2 +=2;
+                                }
                             }
                             else if(teamPossession == 1){
                                 myGame.teamA.addScore(1);
+                                teamAScoreTextView.setText(Integer.toString(myGame.teamA.getScore()));
+                                if((whoServed[2] || whoServed[3]) && nextServerTeam1 != -1){ //new server
+                                    isServing(nextServerTeam1);
+                                    nextServerTeam1 ^= 1;
+                                }
                             }
-                            if(myGame.getServe2() == -1){
-                                askForServer();
-                                setupStateServing(currentServer);
-                            }
+                            myGame.addRally(rallyBuilder+"");
+                            rallyBuilder.delete(0,rallyBuilder.length());
+                            serveAttempt = 1;
+                            teamPossession^=1;
+                            setupStateServing();
                         }
-
 
                         break;
 
-                    case(3): //hinder.  reset the rally.
+                    case(3):
                         rallyBuilder.append(teamPossession*2+1);
                         break;
 
                     case(4): //team somcething palyer1 error
                         rallyBuilder.append("E");
                         rallyBuilder.append(teamPossession*2);
+                        myGame.addRally(rallyBuilder+"");
+                        rallyBuilder.delete(0,rallyBuilder.length());
+                        serveAttempt = 1;
+                        setupStateServing();
                 }
                 System.out.println(rallyBuilder);
 
@@ -232,31 +238,36 @@ public class RecordGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 switch(state){
                     case(0): //determine server1 ; playerA1 button
-                        myGame.setServe1(3);
-                        currentServer = 3;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("3");
-                        setupStateServing(3);
-                        break;
-                    case(1): //determine server2 ; playerA2 button
-                        myGame.setServe2(3);
-                        currentServer = 3;
-                        rallyBuilder.append("S");
-                        rallyBuilder.append("3");
-                        setupStateServing(3);
+                        isServing(3);
+                        nextServerTeam2 = 2;
+                        teamPossession = 1;
+                        firstServers[1]=3;
+                        setupStateServing();
                         break;
                     case(2):
                         //This case should never happen because tAB2 and tBB2 are GONE in state 2
                         break;
 
                     case(3): // play is over. ball hit ground/rim
-                        teamPossession ^= 1;
-                        if(teamPossession==1){
-                            myGame.teamA.addScore(1);
-                        }
-                        else{
+                        if(teamPossession==0){
                             myGame.teamB.addScore(1);
+                            teamBScoreTextView.setText(Integer.toString(myGame.teamB.getScore()));
+                            if((whoServed[0] || whoServed[1]) && nextServerTeam2 != -1){ //new server
+                                 isServing(nextServerTeam2);
+                                 nextServerTeam2 -= 3;  // this will flip the sever
+                                 nextServerTeam2 ^= 1;
+                                 nextServerTeam2 +=3;
+                            }
                         }
+                        else if(teamPossession == 1){
+                            myGame.teamA.addScore(1);
+                            teamAScoreTextView.setText(Integer.toString(myGame.teamA.getScore()));
+                            if((whoServed[2] || whoServed[3]) && nextServerTeam1 != -1){ //new server
+                                isServing(nextServerTeam1);
+                                nextServerTeam1 ^= 1;
+                            }
+                        }
+                        teamPossession ^= 1;
                         teamAScoreTextView.setText(Integer.toString(myGame.teamA.getScore()));
                         teamBScoreTextView.setText(Integer.toString(myGame.teamB.getScore()));
                         askForPutawayError();
@@ -265,6 +276,10 @@ public class RecordGameActivity extends AppCompatActivity {
                     case(4): //team somcething palyer1 error
                         rallyBuilder.append("E");
                         rallyBuilder.append(teamPossession*2);
+                        serveAttempt = 1;
+                        myGame.addRally(rallyBuilder+"");
+                        rallyBuilder.delete(0,rallyBuilder.length());
+                        setupStateServing();
 
                 }
             }
@@ -316,33 +331,45 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     public void askForPutawayError(){
+        //TEAM POSSESSION IS CURRENTLY THE TEAM WHO SCORED
+        System.out.println("possession is team: " + teamPossession);
         serveAttempt = 1;
         String lookingFor = "N";
         if(rallyBuilder.lastIndexOf(lookingFor)<0){
             lookingFor = "n";
         }
+        System.out.println(rallyBuilder);
         System.out.println(rallyBuilder.charAt(rallyBuilder.lastIndexOf(lookingFor)-1) + "");
         int spiker = Integer.parseInt( rallyBuilder.charAt(rallyBuilder.lastIndexOf(lookingFor)-1) + "");
         instructionTextView.setText("Did "+ playerNames[spiker] + " put it away/ace?\nOr did " +
-                teamNames[teamPossession] + " make an unforced Error?");
+                teamNames[teamPossession^1] + " make an unforced Error?");
 
         teamAButton1.setText(playerNames[spiker] + " put-away");
         teamAButton2.setVisibility(View.GONE);
-        teamBButton1.setText(playerNames[teamPossession*2] + "\nmade an unforced error");
-        teamBButton2.setText(playerNames[teamPossession*2+1] + "\n made an unforced error");
+        teamBButton1.setText(playerNames[(teamPossession^1)*2] + "\nmade an unforced error");
+        teamBButton2.setText(playerNames[(teamPossession^1)*2+1] + "\n made an unforced error");
         state = 4;
     }
 
     public void askForServer(){
         instructionTextView.setText(R.string.who_serve_tool_tip);
+        teamAButton1.setVisibility(View.VISIBLE);
+        teamAButton2.setVisibility(View.VISIBLE);
+        teamBButton1.setVisibility(View.VISIBLE);
+        teamBButton2.setVisibility(View.VISIBLE);
         teamAButton1.setText(playerNames[0]);
         teamAButton2.setText(playerNames[1]);
         teamBButton1.setText(playerNames[2]);
         teamBButton2.setText(playerNames[3]);
+        state = 0;
     }
 
     public void changePossessionState(){
         teamPossession ^= 1;
+        teamAButton1.setVisibility(View.VISIBLE);
+        teamAButton2.setVisibility(View.VISIBLE);
+        teamBButton1.setVisibility(View.VISIBLE);
+        teamBButton2.setVisibility(View.VISIBLE);
         teamAButton1.setText(playerNames[teamPossession*2]);
         teamBButton1.setText(playerNames[teamPossession*2+1]);
         teamAButton2.setText("Change of possession\nClean off the net");
@@ -367,20 +394,45 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
 
-    public void setupStateServing(int server){
+    public void setupStateServing(){
+        //teamPossession is the serving team!
         System.out.println("HI I MADE IT");
         String instructionString=" is now serving their first attempt";
+        String appendServe = "S";
         if(serveAttempt == 2){
+            appendServe = "s";
             instructionString = " is now serving their seccond attempt";
         }
-        instructionTextView.setText(playerNames[server] + instructionString);
+
+        if(firstServers[teamPossession] == -1){
+            askForServer();
+            return;
+        }
+        rallyBuilder.append(appendServe);
+        rallyBuilder.append(currentServer());
+
+        instructionTextView.setText(playerNames[currentServer()] + instructionString);
         teamAButton1.setText(R.string.clean);
         teamBButton1.setText(R.string.fault);
         teamAButton2.setVisibility(View.GONE);
         teamBButton2.setVisibility(View.GONE);
-        teamPossession = server/2;
         state = 2;
 
+    }
+    public void isServing(int server){
+        for (int i=0; i<4; i++){
+            whoServed[i] = false;
+        }
+        whoServed[server]=true;
+    }
+
+    public int currentServer(){
+        for(int i=0; i<4; i++){
+            if(whoServed[i]){
+                return i;
+            }
+        }
+        return -1;
     }
 
 

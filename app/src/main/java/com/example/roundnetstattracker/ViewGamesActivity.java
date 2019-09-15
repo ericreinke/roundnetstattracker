@@ -2,8 +2,6 @@ package com.example.roundnetstattracker;
 
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,16 +9,9 @@ import com.google.gson.JsonParser;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
-
-import org.json.JSONArray;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class ViewGamesActivity extends AppCompatActivity {
 
@@ -65,6 +56,8 @@ public class ViewGamesActivity extends AppCompatActivity {
                     + " vs " + arr.get(i).getAsJsonObject().get("teamB").getAsJsonObject().get("score"));
             System.out.println("ID is: " + arr.get(i).getAsJsonObject().get("id"));
         }
+
+
 
 
 

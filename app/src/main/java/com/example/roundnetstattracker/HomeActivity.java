@@ -3,7 +3,6 @@ package com.example.roundnetstattracker;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.roundnetstattracker.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
