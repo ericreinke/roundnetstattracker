@@ -17,7 +17,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="viewMyGames"/>
 
     <Button
         android:id="@+id/deleteButton"
@@ -25,5 +26,6 @@
         android:layout_height="wrap_content"
         android:text="DELETE!!!"
         tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="38dp" />
+        tools:layout_editor_absoluteY="38dp"
+        android:onClick="deleteAllGames"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,10 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        System.out.println("HELLO>>>???");
         Log.d(TAG,"onBindViewHolder: called.");
-
-
 
         holder.team1Name.setText(arr.get(position).getAsJsonObject().get("teamA").getAsJsonObject().get("name")+"");
         holder.team2Name.setText(arr.get(position).getAsJsonObject().get("teamB").getAsJsonObject().get("name")+"");

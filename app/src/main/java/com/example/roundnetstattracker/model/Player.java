@@ -1,9 +1,7 @@
-package com.example.roundnetstattracker;
+package com.example.roundnetstattracker.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.io.Serializable;
 
 public class Player implements Parcelable {
 

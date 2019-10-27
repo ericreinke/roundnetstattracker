@@ -14,5 +14,6 @@
         android:layout_height="wrap_content"
         android:text="@string/return_home"
         tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="150dp" />
+        tools:layout_editor_absoluteY="150dp"
+        android:onClick="returnHome"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

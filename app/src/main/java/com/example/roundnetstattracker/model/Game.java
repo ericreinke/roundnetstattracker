@@ -1,16 +1,16 @@
-package com.example.roundnetstattracker;
+package com.example.roundnetstattracker.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Game implements Parcelable{
 
-    Team teamA;
-    Team teamB;
+    public Team teamA;
+    public Team teamB;
+    public GameManager gm;
     private String id;
     private ArrayList<String> rallies = new ArrayList<>();
 
@@ -18,14 +18,14 @@ public class Game implements Parcelable{
         teamA = new Team("teamA");
         teamB = new Team("teamB");
         id = _id;
-
-
     }
 
     private Game(Parcel parcel) {
         teamA = parcel.readParcelable(Team.class.getClassLoader());
         teamB = parcel.readParcelable(Team.class.getClassLoader());
+        gm = parcel.readParcelable(GameManager.class.getClassLoader());
         id = parcel.readString();
+
         //TODO: parcel read and write List
 
     }
@@ -42,6 +42,7 @@ public class Game implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeParcelable(teamA,0);
         parcel.writeParcelable(teamB,0);
+        parcel.writeParcelable(gm, 0);
         parcel.writeString(id);
     }
 
@@ -51,7 +52,6 @@ public class Game implements Parcelable{
                 public Game createFromParcel(Parcel parcel) {
                     return new Game(parcel);
                 }
-
                 @Override
                 public Game[] newArray(int size) {
                     return new Game[size];

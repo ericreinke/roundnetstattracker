@@ -22,40 +22,35 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
 
-        Button myGamesButton = findViewById(R.id.viewGamesButton);
-        Button deleteButton = findViewById(R.id.deleteButton);
+    /*
+    onClick method.
+     */
+    public void viewMyGames(View view){
+        Intent intent = new Intent(HomeActivity.this, ViewGamesActivity.class);
+        startActivity(intent);
+    }
 
-        myGamesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ViewGamesActivity.class);
-                startActivity(intent);
-            }
-        });
+    /*
+    onClick method.
+     */
+    public void deleteAllGames(View view){
+        File dir = getFilesDir();
+        File file = new File(dir,"games.json");
+        File file2 = new File(dir, "idTracker.txt");
+        file.delete();
+        file2.delete();
+    }
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                File dir = getFilesDir();
-                File file = new File(dir,"games.json");
-                File file2 = new File(dir, "idTracker.txt");
-                file.delete();
-                file2.delete();
-            }
-        });
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                Intent intent = new Intent(HomeActivity.this,NewGameActivity.class);
-                startActivity(intent);
-            }
-        });
+    /*
+    onClick method.
+     */
+    public void newGame(View view){
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+        Intent intent = new Intent(HomeActivity.this,NewGameActivity.class);
+        startActivity(intent);
     }
 
 }

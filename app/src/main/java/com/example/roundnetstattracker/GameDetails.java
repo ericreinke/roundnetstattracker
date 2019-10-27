@@ -21,16 +21,14 @@ public class GameDetails extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button returnHomeButton = findViewById(R.id.returnHomeButton);
+    }
 
-        returnHomeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(GameDetails.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-
+    /*
+    On click method
+     */
+    public void returnHome(View view){
+        Intent intent = new Intent(GameDetails.this, HomeActivity.class);
+        startActivity(intent);
     }
 
 }

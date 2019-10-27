@@ -1,14 +1,12 @@
-package com.example.roundnetstattracker;
+package com.example.roundnetstattracker.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 public class Team implements Parcelable {
 
-    Player player1;
-    Player player2;
+    public Player player1;
+    public Player player2;
     private String name;
     private int score;
 
