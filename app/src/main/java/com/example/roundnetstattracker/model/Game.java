@@ -8,25 +8,26 @@ import java.util.ArrayList;
 
 public class Game implements Parcelable{
 
-    public Team teamA;
-    public Team teamB;
+    public TeamGameProfile teamGameProfileA;
+    public TeamGameProfile teamGameProfileB;
     public GameManager gm;
     private String id;
     private ArrayList<String> rallies = new ArrayList<>();
 
     public Game(String _id){
-        teamA = new Team("teamA");
-        teamB = new Team("teamB");
+        teamGameProfileA = new TeamGameProfile("teamGameProfileA");
+        teamGameProfileB = new TeamGameProfile("teamGameProfileB");
         id = _id;
+        gm = new GameManager();
     }
 
     private Game(Parcel parcel) {
-        teamA = parcel.readParcelable(Team.class.getClassLoader());
-        teamB = parcel.readParcelable(Team.class.getClassLoader());
+        teamGameProfileA = parcel.readParcelable(TeamGameProfile.class.getClassLoader());
+        teamGameProfileB = parcel.readParcelable(TeamGameProfile.class.getClassLoader());
         gm = parcel.readParcelable(GameManager.class.getClassLoader());
         id = parcel.readString();
+        rallies = parcel.createStringArrayList();
 
-        //TODO: parcel read and write List
 
     }
     public void addRally(String rally){
@@ -40,8 +41,8 @@ public class Game implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(teamA,0);
-        parcel.writeParcelable(teamB,0);
+        parcel.writeParcelable(teamGameProfileA,0);
+        parcel.writeParcelable(teamGameProfileB,0);
         parcel.writeParcelable(gm, 0);
         parcel.writeString(id);
     }

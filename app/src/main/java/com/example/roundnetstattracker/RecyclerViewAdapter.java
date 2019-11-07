@@ -44,12 +44,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG,"onBindViewHolder: called.");
 
-        holder.team1Name.setText(arr.get(position).getAsJsonObject().get("teamA").getAsJsonObject().get("name")+"");
-        holder.team2Name.setText(arr.get(position).getAsJsonObject().get("teamB").getAsJsonObject().get("name")+"");
-        holder.team1Score.setText(arr.get(position).getAsJsonObject().get("teamA").getAsJsonObject().get("score")+"");
-        holder.team2Score.setText(arr.get(position).getAsJsonObject().get("teamB").getAsJsonObject().get("score")+"");
-        System.out.println(arr.get(position).getAsJsonObject().get("teamA").getAsJsonObject().get("name")+"");
-        System.out.println(arr.get(position).getAsJsonObject().get("teamB").getAsJsonObject().get("name")+"");
+        holder.team1Name.setText(arr.get(position).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("name")+"");
+        holder.team2Name.setText(arr.get(position).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("name")+"");
+        holder.team1Score.setText(arr.get(position).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("score")+"");
+        holder.team2Score.setText(arr.get(position).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("score")+"");
+        System.out.println(arr.get(position).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("name")+"");
+        System.out.println(arr.get(position).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("name")+"");
 
         final int copy = position;
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {

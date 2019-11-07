@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".RecordGameActivity"
-    android:background="@color/background"
     tools:showIn="@layout/activity_record_game">
 
     <TextView
         android:id="@+id/recordGameTitleTextView"
-        android:textColor="@color/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="@string/recordGameHeader"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/text"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,38 +27,38 @@
         tools:text="@string/recordGameHeader" />
 
     <TextView
-        android:id="@+id/recordTeamATextView"
-        android:textColor="@color/text"
+        android:id="@+id/teamANameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/place_holder"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/text"
         app:layout_constraintEnd_toStartOf="@+id/vsTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordTeamATextView" />
+        app:layout_constraintTop_toBottomOf="@+id/teamAScoreTextView" />
 
     <TextView
-        android:id="@+id/recordTeamBTextView"
-        android:textColor="@color/text"
+        android:id="@+id/teamBNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/place_holder"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/recordTeamBTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/teamBScoreTextView" />
 
     <TextView
         android:id="@+id/vsTextView"
-        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vs"
-        app:layout_constraintBottom_toBottomOf="@+id/recordTeamATextView"
+        android:textColor="@color/text"
+        app:layout_constraintBottom_toBottomOf="@+id/teamAScoreTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,42 +66,44 @@
         android:id="@+id/teamAButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="button1AOnClick"
         android:text="@string/place_holder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recordTeamATextView"
-        app:layout_constraintStart_toStartOf="@+id/recordTeamATextView"
-        app:layout_constraintTop_toBottomOf="@+id/recordTeamATextView" />
+        app:layout_constraintEnd_toEndOf="@+id/teamANameTextView"
+        app:layout_constraintStart_toStartOf="@+id/teamANameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/instructionTextView" />
 
     <Button
         android:id="@+id/teamBButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="button1BOnClick"
         android:text="@string/place_holder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recordTeamBTextView"
-        app:layout_constraintStart_toStartOf="@+id/recordTeamBTextView"
-        app:layout_constraintTop_toBottomOf="@+id/recordTeamBTextView" />
+        app:layout_constraintEnd_toEndOf="@+id/teamBNameTextView"
+        app:layout_constraintStart_toStartOf="@+id/teamBNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/instructionTextView" />
 
     <TextView
-        android:id="@+id/recordTeamATextView"
-        android:textColor="@color/text"
+        android:id="@+id/teamAScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/place_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/text"
         app:layout_constraintEnd_toStartOf="@+id/vsTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordGameTitleTextView" />
 
     <TextView
-        android:id="@+id/recordTeamBTextView"
-        android:textColor="@color/text"
+        android:id="@+id/teamBScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/place_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/vsTextView"
         app:layout_constraintTop_toBottomOf="@+id/recordGameTitleTextView" />
@@ -112,6 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:onClick="saveGame"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -120,20 +123,21 @@
         android:id="@+id/instructionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="@string/place_holder"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recordGameTitleTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/teamANameTextView" />
 
     <Button
         android:id="@+id/teamAButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:onClick="button2AOnClick"
         android:text="@string/place_holder"
         app:layout_constraintEnd_toEndOf="@+id/teamAButton1"
         app:layout_constraintStart_toStartOf="@+id/teamAButton1"
@@ -144,10 +148,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:onClick="button2BOnClick"
         android:text="@string/place_holder"
         app:layout_constraintEnd_toEndOf="@+id/teamBButton1"
         app:layout_constraintStart_toStartOf="@+id/teamBButton1"
         app:layout_constraintTop_toBottomOf="@+id/teamBButton1" />
+
+    <Button
+        android:id="@+id/errorButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="errorOnClick"
+        android:text="@string/error"
+        app:layout_constraintEnd_toEndOf="@+id/plusScoreBButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/plusScoreAButton"
+        app:layout_constraintTop_toBottomOf="@+id/plusScoreAButton" />
+
+    <Button
+        android:id="@+id/serviceFaultButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="serviceFaultOnClick"
+        android:text="@string/service_fault"
+        app:layout_constraintEnd_toEndOf="@+id/errorButton"
+        app:layout_constraintStart_toStartOf="@+id/errorButton"
+        app:layout_constraintTop_toBottomOf="@+id/errorButton" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <Button
+        android:id="@+id/plusScoreAButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="+1 Score"
+        app:layout_constraintEnd_toStartOf="@+id/plusScoreBButton"
+        app:layout_constraintStart_toStartOf="@+id/teamAButton2"
+        app:layout_constraintTop_toBottomOf="@+id/teamAButton2"
+        android:onClick="plusScoreAOnClick"/>
+
+    <Button
+        android:id="@+id/plusScoreBButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="+1 Score"
+        app:layout_constraintEnd_toEndOf="@+id/teamBButton2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/teamBButton2"
+        android:onClick="plusScoreBOnClick"/>
+
+    <TextView
+        android:id="@+id/rallyDebugTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@color/text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

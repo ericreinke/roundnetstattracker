@@ -52,11 +52,11 @@ public class Rally {
      *   P: putaway.  Spiker put the ball away. Point award, no clear Error made.
      *   E: SOMEONE MADE A CLEAR ERROR (different from putaway) Followed by player who made Error
      *
-     *   Example 1: Player 0 serves, hits rim, Player 0 serves again, Player 2 gets a touch, but aced
+     *   Example 1: PlayerGameProfile 0 serves, hits rim, PlayerGameProfile 0 serves again, PlayerGameProfile 2 gets a touch, but aced
      *       "S0F0s0n2P"
-     *   Example 2: Player 3 double faults:
+     *   Example 2: PlayerGameProfile 3 double faults:
      *       "S2Fs2f"
-     *   Example 3: Player 1 serves to player 2, teams have a sick rally player 0 whiffs his spike
+     *   Example 3: PlayerGameProfile 1 serves to player 2, teams have a sick rally player 0 whiffs his spike
      *       "S1n232N101N323N01N01E0"  //note player 1 had last touch, but player 0 had the error
      *   Example 4: typical 1-2-3 put away:
      *       "S0n232NP

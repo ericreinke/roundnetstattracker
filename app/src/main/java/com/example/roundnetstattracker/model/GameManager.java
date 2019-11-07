@@ -10,7 +10,9 @@ public class GameManager implements Parcelable {
     int servingTeam;
     int receivingTeam;
     int nextServer;
-    int [] playerAcross =  new int [4];
+    int [] scores;
+    int [] playerAcross;
+    boolean populated;
 
     public GameManager(Parcel parcel) {
         server = parcel.readInt();
@@ -18,19 +20,54 @@ public class GameManager implements Parcelable {
         servingTeam = parcel.readInt();
         receivingTeam = parcel.readInt();
         nextServer = parcel.readInt();
+        scores = parcel.createIntArray();
         playerAcross = parcel.createIntArray();
     }
 
-    public GameManager(int server, int receiver, int serverTeammate, int receiverTeammate){
+    public GameManager(){//gm is unusable until populated
+        populated=false;
+    }
+
+    public int getServer() {
+        return server;
+    }
+
+    public int getReceiver() {
+        return receiver;
+    }
+
+    public int getServingTeam() {
+        return servingTeam;
+    }
+
+    public int getAScore() { return scores[0]; }
+
+    public int getBScore() { return scores[1]; }
+
+    public int getReceivingTeam() {
+        return receivingTeam;
+    }
+
+    public int getNextServer() {
+        return nextServer;
+    }
+
+    public void populateGameManager(int server, int serverTeammate, int receiver, int receiverTeammate){
+        playerAcross = new int[4];
+        scores = new int[2];
         this.server = server;
         this.receiver = receiver;
         this.servingTeam = server/2;
         this.receivingTeam = receiver/2;
-        this.nextServer = -1; //needs to be updated by user.
+        this.nextServer = -1; //needs to be updated in a separate call by user.
         playerAcross[server] = receiver;
         playerAcross[receiver] = server;
         playerAcross[serverTeammate] = receiverTeammate;
         playerAcross[receiverTeammate] = serverTeammate;
+        scores[0] = 0;
+        scores[1] = 0;
+
+        populated=true;
     }
 
     public void setNextServer(int nextServer){this.nextServer = nextServer;}
@@ -38,13 +75,17 @@ public class GameManager implements Parcelable {
     public void updateGameManager(String breakOrNot){
         assert(nextServer!=-1);
         if(breakOrNot.equals("break")){
+            scores[servingTeam]++;
+
             receiver =  changeTeammate(receiver);
             playerAcross[0] = changeTeammate(playerAcross[0]);
             playerAcross[1] = changeTeammate(playerAcross[1]);
             playerAcross[2] = changeTeammate(playerAcross[2]);
-            playerAcross[3] = changeTeammate(playerAcross[4]);
+            playerAcross[3] = changeTeammate(playerAcross[3]);
         }
         else if(!breakOrNot.equals("break")){
+            scores[receivingTeam]++; // Note score is updated first
+
             int tempServer = server;
             server = nextServer;
             receiver = playerAcross[server];
@@ -69,6 +110,7 @@ public class GameManager implements Parcelable {
         parcel.writeInt(receiver);
         parcel.writeInt(servingTeam);
         parcel.writeInt(receivingTeam);
+        parcel.writeIntArray(scores);
         parcel.writeIntArray(playerAcross);
     }
 

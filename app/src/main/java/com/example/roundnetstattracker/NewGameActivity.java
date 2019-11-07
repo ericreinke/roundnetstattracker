@@ -114,12 +114,12 @@ public class NewGameActivity extends AppCompatActivity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myGame.teamA.setName(teamAEditText.getText().toString());
-                myGame.teamB.setName(teamBEditText.getText().toString());
-                myGame.teamA.player1.setName(pA1EditText.getText().toString());
-                myGame.teamA.player2.setName(pA2EditText.getText().toString());
-                myGame.teamB.player1.setName(pB1EditText.getText().toString());
-                myGame.teamB.player2.setName(pB2EditText.getText().toString());
+                myGame.teamGameProfileA.setName(teamAEditText.getText().toString());
+                myGame.teamGameProfileB.setName(teamBEditText.getText().toString());
+                myGame.teamGameProfileA.playerGameProfile1.setName(pA1EditText.getText().toString());
+                myGame.teamGameProfileA.playerGameProfile2.setName(pA2EditText.getText().toString());
+                myGame.teamGameProfileB.playerGameProfile1.setName(pB1EditText.getText().toString());
+                myGame.teamGameProfileB.playerGameProfile2.setName(pB2EditText.getText().toString());
 
                 Intent intent = new Intent(NewGameActivity.this, RecordGameActivity.class);
                 intent.putExtra("GAME_OBJECT", myGame);
@@ -132,8 +132,8 @@ public class NewGameActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if(!hasFocus){
-                    pA1EditText.setHint(teamAEditText.getText() + " Player 1");
-                    pA2EditText.setHint(teamAEditText.getText() + " Player 2");
+                    pA1EditText.setHint(teamAEditText.getText() + " PlayerGameProfile 1");
+                    pA2EditText.setHint(teamAEditText.getText() + " PlayerGameProfile 2");
                 }
             }
         });
@@ -141,8 +141,8 @@ public class NewGameActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if(!hasFocus){
-                    pB1EditText.setHint(teamBEditText.getText() + " Player 1");
-                    pB2EditText.setHint(teamBEditText.getText() + " Player 2");
+                    pB1EditText.setHint(teamBEditText.getText() + " PlayerGameProfile 1");
+                    pB2EditText.setHint(teamBEditText.getText() + " PlayerGameProfile 2");
                 }
             }
         });

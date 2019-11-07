@@ -17,4 +17,6 @@
     <string name="fault">Service Fault</string>
     <string name="who_touch">Keep track of who touches the ball</string>
     <string name="title_activity_new_game">New Game</string>
+    <string name="error">Error</string>
+    <string name="service_fault">Service Fault</string>
 </resources>

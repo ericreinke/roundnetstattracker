@@ -54,8 +54,8 @@ public class ViewGamesActivity extends AppCompatActivity {
         JsonObject obj = new JsonParser().parse(jsonArrayOfGames).getAsJsonObject();
         JsonArray arr = obj.getAsJsonArray("games");
         for(int i=0; i<arr.size(); i++){
-            System.out.println("The score was: " + arr.get(i).getAsJsonObject().get("teamA").getAsJsonObject().get("score")
-                    + " vs " + arr.get(i).getAsJsonObject().get("teamB").getAsJsonObject().get("score"));
+            System.out.println("The score was: " + arr.get(i).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("score")
+                    + " vs " + arr.get(i).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("score"));
             System.out.println("ID is: " + arr.get(i).getAsJsonObject().get("id"));
         }
 
