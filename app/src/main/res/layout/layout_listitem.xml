@@ -17,8 +17,9 @@
         android:id="@+id/team2NameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_below="@id/team1NameTextView"
+        android:layout_marginTop="0dp"
+        android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <TextView

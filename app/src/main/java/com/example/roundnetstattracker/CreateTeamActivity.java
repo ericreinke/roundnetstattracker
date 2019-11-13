@@ -1,5 +1,6 @@
 package com.example.roundnetstattracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.roundnetstattracker.model.Team;
@@ -12,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.widget.TextView;
+
+import java.util.List;
 
 public class CreateTeamActivity extends AppCompatActivity {
 
@@ -29,10 +32,18 @@ public class CreateTeamActivity extends AppCompatActivity {
     }
 
     public void createNewTeamOnClick(View view){
-        Team newTeam = new Team((String)teamNameTextView.getText());
-        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
-
-        db.teamDao().insertAll(newTeam);
+        new Thread(new Runnable() {
+            public void run() {
+                Team newTeam = new Team(teamNameTextView.getText().toString());
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                System.out.println("inserting");
+                db.teamDao().insertAll(newTeam);
+            }
+        }).start();
+        Intent intent=new Intent();
+        intent.putExtra("MESSAGE", "Inserted new team");
+        setResult(1,intent);
+        finish();
     }
 
 }

@@ -12,22 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.roundnetstattracker.model.Game;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerViewAdapter.ViewHolder>{
 
-    private static final String TAG = "RecyclerViewAdapter";
+    private static final String TAG = "GameRecyclerViewAdapter";
 
-    private JsonArray arr;
+    private List<Game> games;
     private Context context;
 
-    public RecyclerViewAdapter(Context context, JsonArray arr) {
-        this.arr = arr;
+    public GameRecyclerViewAdapter(Context context, List<Game> games) {
+        this.games = games;
         this.context = context;
     }
 
@@ -44,19 +42,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Log.d(TAG,"onBindViewHolder: called.");
 
-        holder.team1Name.setText(arr.get(position).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("name")+"");
-        holder.team2Name.setText(arr.get(position).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("name")+"");
-        holder.team1Score.setText(arr.get(position).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("score")+"");
-        holder.team2Score.setText(arr.get(position).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("score")+"");
-        System.out.println(arr.get(position).getAsJsonObject().get("teamGameProfileA").getAsJsonObject().get("name")+"");
-        System.out.println(arr.get(position).getAsJsonObject().get("teamGameProfileB").getAsJsonObject().get("name")+"");
+        holder.team1Name.setText(games.get(position).teamGameProfileA.name);
+        holder.team2Name.setText(games.get(position).teamGameProfileB.name);
+        holder.team1Score.setText(games.get(position).teamGameProfileA.teamScore);
+        holder.team2Score.setText(games.get(position).teamGameProfileB.teamScore);
 
         final int copy = position;
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,GameDetails.class);
-                intent.putExtra("GAME_OBJECT", arr.get(copy).getAsJsonObject().toString());
+                Intent intent = new Intent(context, GameDetails.class);
+                intent.putExtra("GAME_OBJECT", games.get(copy));
                 context.startActivity(intent);
 
             }
@@ -66,7 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return arr.size();
+        return games.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

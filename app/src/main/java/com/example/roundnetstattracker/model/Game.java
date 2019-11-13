@@ -3,7 +3,11 @@ package com.example.roundnetstattracker.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -11,19 +15,34 @@ import java.util.UUID;
 @Entity(tableName = "games")
 public class Game implements Parcelable{
 
+    @Ignore
     public TeamGameProfile teamGameProfileA;
+    @Ignore
     public TeamGameProfile teamGameProfileB;
+    @Ignore
     public GameManager gm;
-    private UUID teamAProfileId;
-    private UUID teamBProfileId;
-    private UUID id;
+
+    @ColumnInfo(name = "team_a_profile_id")
+    public  String teamAProfileId; // is a string uuid
+
+    @ColumnInfo(name = "team_b_profile_id")
+    public  String teamBProfileId; // is a string uuid
+
+    @PrimaryKey
+    @NonNull
+    public  String uid = UUID.randomUUID().toString();
+
+    @Ignore
     private ArrayList<String> rallies = new ArrayList<>();
 
     public Game(){
-        System.out.println("cfreating game");
+        System.out.println("creating game");
         teamGameProfileA = new TeamGameProfile("replace me");
         teamGameProfileB = new TeamGameProfile("repalce me");
+        teamAProfileId = teamGameProfileA.uid;
+        teamBProfileId = teamGameProfileB.uid;
         gm = new GameManager();
+
     }
 
     private Game(Parcel parcel) {

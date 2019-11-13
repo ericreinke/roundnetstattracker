@@ -39,11 +39,17 @@ public class HomeActivity extends AppCompatActivity {
     onClick method.
      */
     public void deleteAllGames(View view){
-        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        db.teamDao().deleteAll();
-        db.playerDao().deleteAll();
-        db.playerProfileDao().deleteAll();
-        db.teamProfileDAO().deleteAll();
+        new Thread(new Runnable() {
+            public void run() {
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                db.teamDao().deleteAll();
+                db.playerDao().deleteAll();
+                db.playerProfileDao().deleteAll();
+                db.teamProfileDAO().deleteAll();
+            }
+        }).start();
+
+
     }
 
     /*

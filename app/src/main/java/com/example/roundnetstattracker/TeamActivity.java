@@ -35,15 +35,39 @@ public class TeamActivity extends AppCompatActivity {
 
     public void createTeamActivityOnClick(View view){
         Intent intent = new Intent(TeamActivity.this, CreateTeamActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
 
     }
 
+    // Call Back method, update teams if successful
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1) {
+            String message=data.getStringExtra("MESSAGE");
+            System.out.println(message);
+            updateTeams();
+        }
+    }
     public void updateTeams(){
-        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
-        List<Team> allTeams = db.teamDao().getAll();
-        firstTeamButton.setText(allTeams.get(0).name);
-        secondTeamButton.setText(allTeams.get(1).name);
+        new Thread(new Runnable() {
+            public void run() {
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                final List<Team> allTeams = db.teamDao().getAll();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(allTeams.size() >= 2) {
+                            firstTeamButton.setText(allTeams.get(0).name);
+                            secondTeamButton.setText(allTeams.get(1).name);
+                        }
+                    }
+                });
+            }
+        }).start();
+
+
+
     }
 
 }
