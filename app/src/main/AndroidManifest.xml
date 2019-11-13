@@ -10,9 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CreatePlayerActivity"
+            android:label="@string/title_activity_create_player"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".PlayerActivity"
+            android:label="@string/title_activity_player"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CreateTeamActivity"
+            android:label="@string/title_activity_create_team"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TeamActivity"
+            android:label="@string/title_activity_team"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".ViewGamesActivity"
             android:label="@string/title_activity_view_games"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RecordGameActivity"
             android:label="@string/title_activity_record_game"

@@ -3,11 +3,27 @@ package com.example.roundnetstattracker.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import java.util.UUID;
+
+@Entity(tableName = "team_profiles")
 public class TeamGameProfile implements Parcelable {
 
+    @Ignore
     public PlayerGameProfile playerGameProfile1;
+    @Ignore
     public PlayerGameProfile playerGameProfile2;
-    private String name;
+
+    @PrimaryKey
+    @NonNull
+    public String uid = UUID.randomUUID().toString();
+    public int teamScore = -1;
+    public String name;
 
 
     public TeamGameProfile(String teamName){
@@ -16,18 +32,37 @@ public class TeamGameProfile implements Parcelable {
         String name = teamName;
     }
 
-    public TeamGameProfile(Parcel parcel) {
-        playerGameProfile1 = parcel.readParcelable(PlayerGameProfile.class.getClassLoader());
-        playerGameProfile2 = parcel.readParcelable(PlayerGameProfile.class.getClassLoader());
-        name = parcel.readString();
+    public TeamGameProfile(){}
+    /*
+    Get team name.
+     */
+    public String getName(){
+        return this.name;
     }
 
+    /*
+    Set team name.  In the future, retrieve from db
+     */
     public void setName(String name){
         this.name = name;
     }
 
-    public String getName(){
-        return this.name;
+    /*
+    This should be called only once when trying to save (db purposes).
+    For dynamic use, use the game GameManager
+     */
+    public void setTeamScore(int score){ this.teamScore = score; }
+
+
+    /*
+    Parcel methods
+     */
+
+    public TeamGameProfile(Parcel parcel) {
+        playerGameProfile1 = parcel.readParcelable(PlayerGameProfile.class.getClassLoader());
+        playerGameProfile2 = parcel.readParcelable(PlayerGameProfile.class.getClassLoader());
+        teamScore = parcel.readInt();
+        name = parcel.readString();
     }
 
     @Override

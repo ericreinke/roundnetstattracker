@@ -28,4 +28,22 @@
         tools:layout_editor_absoluteX="46dp"
         tools:layout_editor_absoluteY="38dp"
         android:onClick="deleteAllGames"/>
+
+    <Button
+        android:id="@+id/selectTeamButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="newTeam"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:onClick="selectTeamOnClick"/>
+
+    <Button
+        android:id="@+id/selectPlayerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="newPlayer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/selectTeamButton"
+        android:onClick="selectPlayerOnClick"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

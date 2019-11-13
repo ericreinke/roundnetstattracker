@@ -99,7 +99,7 @@ public class NewGameActivity extends AppCompatActivity {
 
 
 
-        final Game myGame = new Game("game"+strBuffer.toString());
+        final Game myGame = new Game();
 
 
 

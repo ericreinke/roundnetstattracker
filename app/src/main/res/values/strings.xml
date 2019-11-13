@@ -19,4 +19,8 @@
     <string name="title_activity_new_game">New Game</string>
     <string name="error">Error</string>
     <string name="service_fault">Service Fault</string>
+    <string name="title_activity_team">TeamActivity</string>
+    <string name="title_activity_create_team">CreateTeamActivity</string>
+    <string name="title_activity_player">PlayerActivity</string>
+    <string name="title_activity_create_player">CreatePlayerActivity</string>
 </resources>

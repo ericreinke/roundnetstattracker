@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.roundnetstattracker.enums.States;
 import com.example.roundnetstattracker.model.Game;
+import com.example.roundnetstattracker.room.AppDatabase;
 
 public class RecordGameActivity extends AppCompatActivity {
 
@@ -71,8 +73,7 @@ public class RecordGameActivity extends AppCompatActivity {
 
         myGame.gm.populateGameManager(0, 1, 2, 3);
         myGame.gm.setNextServer(2);
-        int[] enable = {myGame.gm.getServer()};
-        disableAllButtonsBut(enable);
+        disableAllButtonsBut(myGame.gm.getServer());
 
         teamATextView.setText(myGame.teamGameProfileA.getName());
         teamBTextView.setText(myGame.teamGameProfileB.getName());
@@ -93,7 +94,7 @@ public class RecordGameActivity extends AppCompatActivity {
 
     public void button1AOnClick(View view){
         currentRally.append("0");
-        enableAllButtonsBut(new int[] {0});
+        enableAllButtonsBut(0);
 
         if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
         else if(state.equals(ERROR)){
@@ -105,7 +106,7 @@ public class RecordGameActivity extends AppCompatActivity {
     }
     public void button2AOnClick(View view){
         currentRally.append("1");
-        enableAllButtonsBut(new int[] {1});
+        enableAllButtonsBut(1);
 
         if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
         else if(state.equals(ERROR)){
@@ -117,7 +118,7 @@ public class RecordGameActivity extends AppCompatActivity {
     }
     public void button1BOnClick(View view){
         currentRally.append("2");
-        enableAllButtonsBut(new int[] {2});
+        enableAllButtonsBut(2);
 
         if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
         else if(state.equals(ERROR)){
@@ -129,7 +130,7 @@ public class RecordGameActivity extends AppCompatActivity {
     }
     public void button2BOnClick(View view){
         currentRally.append("3");
-        enableAllButtonsBut(new int[] {3});
+        enableAllButtonsBut(3);
 
         if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
         else if(state.equals(ERROR)){
@@ -142,7 +143,7 @@ public class RecordGameActivity extends AppCompatActivity {
     public void errorOnClick(View view){
         currentRally.append("E");
         state = ERROR;
-        disableAllButtonsBut(new int[] {0,1,2,3});
+        disableAllButtonsBut(0,1,2,3);
 
         rallyTextView.setText(currentRally.toString());
     }
@@ -161,6 +162,15 @@ public class RecordGameActivity extends AppCompatActivity {
             // we already have "F" and "f" and somehow we have another fault.  something's up
         }
         rallyTextView.setText(currentRally.toString());
+    }
+
+    public void saveGameOnClick(View view){
+        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+
+        db.playerProfileDao().insertAll(myGame.teamGameProfileA.playerGameProfile1);
+        db.playerProfileDao().insertAll(myGame.teamGameProfileA.playerGameProfile2);
+        db.playerProfileDao().insertAll(myGame.teamGameProfileB.playerGameProfile1);
+        db.playerProfileDao().insertAll(myGame.teamGameProfileB.playerGameProfile2);
     }
 
 
@@ -189,7 +199,7 @@ public class RecordGameActivity extends AppCompatActivity {
         setAndUpdateState(SERVING);
     }
 
-    public void enableAllButtonsBut(int[] buttons){
+    public void enableAllButtonsBut(int ... buttons){
         for(int i = 0; i < allButtons.length; i++){
             allButtons[i].setEnabled(true);
         }
@@ -198,7 +208,7 @@ public class RecordGameActivity extends AppCompatActivity {
         }
     }
 
-    public void disableAllButtonsBut(int[] buttons){
+    public void disableAllButtonsBut(int ... buttons){
         for(int i = 0; i < allButtons.length; i++){
             allButtons[i].setEnabled(false);
         }
@@ -212,13 +222,13 @@ public class RecordGameActivity extends AppCompatActivity {
         System.out.println(state);
 
         if(state.equals(SERVING)){
-            disableAllButtonsBut(new int[] {myGame.gm.getServer()});
+            disableAllButtonsBut(myGame.gm.getServer());
         }
         else if(state.equals(RECEIVING)){
-            disableAllButtonsBut(new int[] {myGame.gm.getReceiver(), 5, myGame.gm.getServingTeam()+6});
+            disableAllButtonsBut(myGame.gm.getReceiver(), 5, myGame.gm.getServingTeam()+6);
         }
         else if(state.equals(ERROR)){
-            disableAllButtonsBut(new int[] {0, 1, 2, 3});
+            disableAllButtonsBut(0, 1, 2, 3);
             instructionTextView.setText("Please select who made the error");
 
         }

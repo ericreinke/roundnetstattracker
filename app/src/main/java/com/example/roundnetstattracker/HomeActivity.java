@@ -3,6 +3,9 @@ package com.example.roundnetstattracker;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.roundnetstattracker.model.Player;
+import com.example.roundnetstattracker.model.Team;
+import com.example.roundnetstattracker.room.AppDatabase;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -36,11 +39,11 @@ public class HomeActivity extends AppCompatActivity {
     onClick method.
      */
     public void deleteAllGames(View view){
-        File dir = getFilesDir();
-        File file = new File(dir,"games.json");
-        File file2 = new File(dir, "idTracker.txt");
-        file.delete();
-        file2.delete();
+        AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+        db.teamDao().deleteAll();
+        db.playerDao().deleteAll();
+        db.playerProfileDao().deleteAll();
+        db.teamProfileDAO().deleteAll();
     }
 
     /*
@@ -50,6 +53,22 @@ public class HomeActivity extends AppCompatActivity {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
         Intent intent = new Intent(HomeActivity.this,NewGameActivity.class);
+        startActivity(intent);
+    }
+
+    /*
+    onClick method.
+     */
+    public void selectTeamOnClick(View view){
+        Intent intent = new Intent(HomeActivity.this, TeamActivity.class);
+        startActivity(intent);
+    }
+
+    /*
+    onClick method.
+     */
+    public void selectPlayerOnClick(View view){
+        Intent intent = new Intent(HomeActivity.this, PlayerActivity.class);
         startActivity(intent);
     }
 

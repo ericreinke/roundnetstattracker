@@ -3,21 +3,26 @@ package com.example.roundnetstattracker.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+
 import java.util.ArrayList;
+import java.util.UUID;
 
-
+@Entity(tableName = "games")
 public class Game implements Parcelable{
 
     public TeamGameProfile teamGameProfileA;
     public TeamGameProfile teamGameProfileB;
     public GameManager gm;
-    private String id;
+    private UUID teamAProfileId;
+    private UUID teamBProfileId;
+    private UUID id;
     private ArrayList<String> rallies = new ArrayList<>();
 
-    public Game(String _id){
-        teamGameProfileA = new TeamGameProfile("teamGameProfileA");
-        teamGameProfileB = new TeamGameProfile("teamGameProfileB");
-        id = _id;
+    public Game(){
+        System.out.println("cfreating game");
+        teamGameProfileA = new TeamGameProfile("replace me");
+        teamGameProfileB = new TeamGameProfile("repalce me");
         gm = new GameManager();
     }
 
@@ -25,7 +30,6 @@ public class Game implements Parcelable{
         teamGameProfileA = parcel.readParcelable(TeamGameProfile.class.getClassLoader());
         teamGameProfileB = parcel.readParcelable(TeamGameProfile.class.getClassLoader());
         gm = parcel.readParcelable(GameManager.class.getClassLoader());
-        id = parcel.readString();
         rallies = parcel.createStringArrayList();
 
 
@@ -44,7 +48,6 @@ public class Game implements Parcelable{
         parcel.writeParcelable(teamGameProfileA,0);
         parcel.writeParcelable(teamGameProfileB,0);
         parcel.writeParcelable(gm, 0);
-        parcel.writeString(id);
     }
 
     public static final Parcelable.Creator<Game> CREATOR=
