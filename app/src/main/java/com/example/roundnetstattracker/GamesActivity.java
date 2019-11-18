@@ -3,6 +3,7 @@ package com.example.roundnetstattracker;
 import android.os.Bundle;
 
 import com.example.roundnetstattracker.model.Game;
+import com.example.roundnetstattracker.recycler.GameRecyclerViewAdapter;
 import com.example.roundnetstattracker.room.AppDatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class ViewGamesActivity extends AppCompatActivity {
+public class GamesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +66,9 @@ public class ViewGamesActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         RecyclerView recyclerView = findViewById(R.id.gameRecyclerView);
-                        GameRecyclerViewAdapter adapter = new GameRecyclerViewAdapter(ViewGamesActivity.this, allGames);
+                        GameRecyclerViewAdapter adapter = new GameRecyclerViewAdapter(GamesActivity.this, allGames);
                         recyclerView.setAdapter(adapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(ViewGamesActivity.this));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(GamesActivity.this));
                     }
                 });
             }

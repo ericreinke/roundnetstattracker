@@ -1,4 +1,4 @@
-package com.example.roundnetstattracker;
+package com.example.roundnetstattracker.recycler;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.roundnetstattracker.GameDetailsActivity;
+import com.example.roundnetstattracker.R;
 import com.example.roundnetstattracker.model.Game;
-import com.google.gson.JsonArray;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, GameDetails.class);
+                Intent intent = new Intent(context, GameDetailsActivity.class);
                 intent.putExtra("GAME_OBJECT", games.get(copy));
                 context.startActivity(intent);
 
@@ -80,7 +81,7 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
             team2Name = itemView.findViewById(R.id.team2NameTextView);
             team1Score = itemView.findViewById(R.id.team1ScoreTextView);
             team2Score = itemView.findViewById(R.id.team2ScoreTextView);
-            parentLayout = itemView.findViewById(R.id.parent_layout);
+            parentLayout = itemView.findViewById(R.id.game_parent_layout);
 
         }
     }

@@ -8,19 +8,22 @@
     tools:context=".CreatePlayerActivity"
     tools:showIn="@layout/activity_create_player">
 
-    <TextView
-        android:id="@+id/playerNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="-7dp"
-        tools:layout_editor_absoluteY="123dp" />
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createPlayerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="create"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="147dp" />
+        tools:layout_editor_absoluteX="147dp"
+        android:onClick="createNewPlayerOnClick"/>
+
+    <EditText
+        android:id="@+id/playerNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="91dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

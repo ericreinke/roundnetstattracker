@@ -19,6 +19,8 @@ public class TeamGameProfile implements Parcelable {
     @Ignore
     public PlayerGameProfile playerGameProfile2;
 
+    public String teamuid;
+
     @PrimaryKey
     @NonNull
     public String uid = UUID.randomUUID().toString();

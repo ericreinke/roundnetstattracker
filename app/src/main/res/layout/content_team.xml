@@ -5,22 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".TeamActivity"
+    tools:context=".TeamsActivity"
     tools:showIn="@layout/activity_team">
 
-    <Button
-        android:id="@+id/firstTeamButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1st"
-        tools:layout_editor_absoluteX="149dp"
-        tools:layout_editor_absoluteY="91dp" />
-
-    <Button
-        android:id="@+id/secondTeamButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2nd"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="194dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

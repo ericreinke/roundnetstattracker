@@ -3,19 +3,13 @@ package com.example.roundnetstattracker;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.roundnetstattracker.model.Player;
-import com.example.roundnetstattracker.model.Team;
 import com.example.roundnetstattracker.room.AppDatabase;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
-import android.widget.Button;
-
-import java.io.File;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -31,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     onClick method.
      */
     public void viewMyGames(View view){
-        Intent intent = new Intent(HomeActivity.this, ViewGamesActivity.class);
+        Intent intent = new Intent(HomeActivity.this, GamesActivity.class);
         startActivity(intent);
     }
 
@@ -66,7 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     onClick method.
      */
     public void selectTeamOnClick(View view){
-        Intent intent = new Intent(HomeActivity.this, TeamActivity.class);
+        Intent intent = new Intent(HomeActivity.this, TeamsActivity.class);
         startActivity(intent);
     }
 
@@ -74,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
     onClick method.
      */
     public void selectPlayerOnClick(View view){
-        Intent intent = new Intent(HomeActivity.this, PlayerActivity.class);
+        Intent intent = new Intent(HomeActivity.this, PlayersActivity.class);
         startActivity(intent);
     }
 

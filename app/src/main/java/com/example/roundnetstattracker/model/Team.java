@@ -2,7 +2,6 @@ package com.example.roundnetstattracker.model;
 
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
@@ -29,5 +28,13 @@ public class Team {
     public Player player2;
 
     public Team(String name){this.name = name; }
+
+    public Team(boolean anything){
+        name = "team" + uid;
+        player1 = new Player(false);
+        player2 = new Player(false);
+        player1Id = player1.uid;
+        player2Id = player2.uid;
+    }
 
 }

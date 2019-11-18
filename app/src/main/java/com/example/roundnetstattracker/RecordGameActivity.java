@@ -283,7 +283,7 @@ public class RecordGameActivity extends AppCompatActivity {
 //            }
 //        }
 //
-//        Intent intent = new Intent(RecordGameActivity.this, GameDetails.class);
+//        Intent intent = new Intent(RecordGameActivity.this, GameDetailsActivity.class);
 //        intent.putExtra("GAME_OBJECT", myGame);
 //        //We need to either pass the Game object or the ID here.  Game object is probbably eaiser
 //        startActivity(intent);

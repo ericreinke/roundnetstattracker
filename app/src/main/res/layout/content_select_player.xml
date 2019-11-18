@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".GamesActivity"
-    tools:showIn="@layout/activity_view_games">
+    tools:context=".SelectPlayerActivity"
+    tools:showIn="@layout/activity_select_player">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gameRecyclerView"
+        android:id="@+id/selectPlayerRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="186dp"
-        tools:layout_editor_absoluteY="118dp" />
+        tools:layout_editor_absoluteX="154dp"
+        tools:layout_editor_absoluteY="117dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

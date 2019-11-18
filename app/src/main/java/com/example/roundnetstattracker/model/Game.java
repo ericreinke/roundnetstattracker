@@ -17,8 +17,16 @@ public class Game implements Parcelable{
 
     @Ignore
     public TeamGameProfile teamGameProfileA;
+
     @Ignore
     public TeamGameProfile teamGameProfileB;
+
+    @Ignore
+    public Team teamA;
+
+    @Ignore
+    public Team teamB;
+
     @Ignore
     public GameManager gm;
 
