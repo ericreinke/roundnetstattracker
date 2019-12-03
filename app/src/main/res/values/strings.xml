@@ -24,4 +24,6 @@
     <string name="title_activity_player">PlayerActivity</string>
     <string name="title_activity_create_player">CreatePlayerActivity</string>
     <string name="title_activity_select_player">SelectPlayerActivity</string>
+    <string name="title_activity_team_details">TeamDetailsActivity</string>
+    <string name="title_activity_select_team">SelectTeamActivity</string>
 </resources>

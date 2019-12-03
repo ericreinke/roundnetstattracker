@@ -33,17 +33,17 @@
         android:id="@+id/selectTeamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="newTeam"
+        android:onClick="selectTeamOnClick"
+        android:text="Teams"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="selectTeamOnClick"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/selectPlayerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="newPlayer"
+        android:onClick="selectPlayerOnClick"
+        android:text="Players"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selectTeamButton"
-        android:onClick="selectPlayerOnClick"/>
+        app:layout_constraintStart_toEndOf="@+id/selectTeamButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

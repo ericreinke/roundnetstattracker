@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".NewGameActivity"
+    tools:context=".CreateGameActivity"
     tools:showIn="@layout/activity_new_game">
 
     <EditText
@@ -39,7 +39,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamAPlainText"
+        app:layout_constraintTop_toBottomOf="@+id/teamATextView"
         app:layout_constraintVertical_bias="0.6" />
 
     <EditText
@@ -72,26 +72,26 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="New Game" />
 
-    <EditText
-        android:id="@+id/teamAPlainText"
-        android:textColorHint="@color/text_hint"
-        android:textColor="@color/text"
-        android:backgroundTint="@color/text"
+    <TextView
+        android:id="@+id/teamATextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/text"
         android:ems="10"
         android:hint="Team A"
         android:inputType="textPersonName"
         android:singleLine="false"
         android:textAlignment="center"
+        android:textColor="@color/text"
+        android:textColorHint="@color/text_hint"
         app:layout_constraintEnd_toStartOf="@+id/newGameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newGameToolTipTextView" />
 
-    <EditText
-        android:id="@+id/teamBPlainText"
+    <TextView
+        android:id="@+id/teamBTextView"
         android:textColor="@color/text"
         android:textColorHint="@color/text_hint"
         android:backgroundTint="@color/text"
@@ -121,7 +121,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamAPlainText"
+        app:layout_constraintTop_toBottomOf="@+id/teamATextView"
         app:layout_constraintVertical_bias="0.15" />
 
     <Button
@@ -166,9 +166,31 @@
         android:layout_height="wrap_content"
         android:text="@string/vs"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/teamAPlainText"
-        app:layout_constraintEnd_toStartOf="@+id/teamBPlainText"
-        app:layout_constraintStart_toEndOf="@+id/teamAPlainText" />
+        app:layout_constraintBottom_toBottomOf="@+id/teamATextView"
+        app:layout_constraintEnd_toStartOf="@+id/teamBTextView"
+        app:layout_constraintStart_toEndOf="@+id/teamATextView" />
+
+    <Button
+        android:id="@+id/createGameAddTeam1Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Team"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="@+id/teamATextView"
+        app:layout_constraintStart_toStartOf="@+id/teamATextView"
+        app:layout_constraintTop_toBottomOf="@+id/teamATextView"
+        android:onClick="addTeam1OnClick"/>
+
+    <Button
+        android:id="@+id/createGameAddTeam2Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Team"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintEnd_toEndOf="@+id/teamBTextView"
+        app:layout_constraintStart_toStartOf="@+id/teamBTextView"
+        app:layout_constraintTop_toBottomOf="@+id/teamBTextView"
+        android:onClick="addTeam2OnClick"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,32 +14,22 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <TextView
+        android:id="@+id/vsListItemText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/team1NameTextView"
+        android:text="@string/vs"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
         android:id="@+id/team2NameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/team1NameTextView"
-        android:layout_marginTop="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/vsListItemText"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <TextView
-        android:id="@+id/team1ScoreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_toRightOf="@id/team1NameTextView"
-        android:layout_marginLeft="30dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <TextView
-        android:id="@+id/team2ScoreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/team1ScoreTextView"
-        android:layout_toRightOf="@id/team2NameTextView"
-        android:layout_marginLeft="30dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="TextView" />
 
 
 </RelativeLayout>
