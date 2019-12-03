@@ -14,11 +14,14 @@ public class Player implements Parcelable {
 
     @PrimaryKey
     @NonNull
-    public String uid = UUID.randomUUID().toString();
+    public String uid;
 
     public String name;
 
-    public Player(String name){ this.name = name; }
+    public Player(String uid, String name){
+        this.uid = uid;
+        this.name = name;
+    }
 
     public Player(Parcel parcel){
         this.uid = parcel.readString();

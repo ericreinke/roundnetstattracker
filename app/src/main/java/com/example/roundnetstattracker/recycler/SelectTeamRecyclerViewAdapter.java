@@ -1,7 +1,6 @@
 package com.example.roundnetstattracker.recycler;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,42 +10,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.roundnetstattracker.room.OnRecyclerViewTeamClickListener;
 import com.example.roundnetstattracker.R;
-import com.example.roundnetstattracker.TeamDetailsActivity;
 import com.example.roundnetstattracker.model.Team;
 
 import java.util.List;
 
-public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerViewAdapter.ViewHolder> {
+public class SelectTeamRecyclerViewAdapter extends RecyclerView.Adapter<SelectTeamRecyclerViewAdapter.ViewHolder> {
 
     private List<Team> teams;
     private Context context;
+    private OnRecyclerViewTeamClickListener onRecyclerViewTeamClickListener;
 
-    public TeamRecyclerViewAdapter(Context context, List<Team> teams){
-        this.context = context;
+    public SelectTeamRecyclerViewAdapter (Context context, List<Team> teams, OnRecyclerViewTeamClickListener onRecyclerViewTeamClickListener){
         this.teams = teams;
+        this.context = context;
+        this.onRecyclerViewTeamClickListener = onRecyclerViewTeamClickListener;
     }
 
     @NonNull
     @Override
-    public TeamRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SelectTeamRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_team_listitem, parent, false);
-        TeamRecyclerViewAdapter.ViewHolder holder = new TeamRecyclerViewAdapter.ViewHolder(view);
+        SelectTeamRecyclerViewAdapter.ViewHolder holder = new SelectTeamRecyclerViewAdapter.ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TeamRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.teamName.setText(teams.get(position).name);
 
         final int copy = position;
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TeamDetailsActivity.class);
-                intent.putExtra("TEAM_ID", teams.get(copy).uid);
-                context.startActivity(intent);
-
+                onRecyclerViewTeamClickListener.onTeamClick(teams.get(copy));
             }
         });
     }
@@ -56,8 +54,7 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
         return teams.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView teamName;
         TextView player1Name;
         TextView player2Name;
@@ -72,3 +69,9 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
         }
     }
 }
+
+
+
+
+
+

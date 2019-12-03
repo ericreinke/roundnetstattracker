@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
     public void newGame(View view){
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-        Intent intent = new Intent(HomeActivity.this,NewGameActivity.class);
+        Intent intent = new Intent(HomeActivity.this, CreateGameActivity.class);
         startActivity(intent);
     }
 

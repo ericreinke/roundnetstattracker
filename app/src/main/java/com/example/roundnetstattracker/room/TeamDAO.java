@@ -24,4 +24,7 @@ public interface TeamDAO {
 
     @Query("DELETE FROM teams")
     void deleteAll();
+
+    @Query("SELECT * FROM teams WHERE uid = :teamId")
+    Team getTeam(String teamId);
 }

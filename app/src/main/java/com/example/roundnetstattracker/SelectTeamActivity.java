@@ -3,55 +3,42 @@ package com.example.roundnetstattracker;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.roundnetstattracker.model.Player;
 import com.example.roundnetstattracker.model.Team;
-import com.example.roundnetstattracker.recycler.TeamRecyclerViewAdapter;
+import com.example.roundnetstattracker.recycler.SelectTeamRecyclerViewAdapter;
 import com.example.roundnetstattracker.room.AppDatabase;
+import com.example.roundnetstattracker.room.OnRecyclerViewTeamClickListener;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamsActivity extends AppCompatActivity{
+public class SelectTeamActivity extends AppCompatActivity implements OnRecyclerViewTeamClickListener {
 
     List<Team> allTeams;
-    TeamRecyclerViewAdapter adapter;
+    SelectTeamRecyclerViewAdapter adapter;
     RecyclerView recyclerView;
+    int teamNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_team);
+        setContentView(R.layout.activity_select_team);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         allTeams = new ArrayList<>();
-        recyclerView = findViewById(R.id.teamRecyclerView);
+        recyclerView = findViewById(R.id.selectTeamRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new TeamRecyclerViewAdapter(this, allTeams);
+        adapter = new SelectTeamRecyclerViewAdapter(this, allTeams, this);
         recyclerView.setAdapter(adapter);
+        teamNumber = getIntent().getIntExtra("TEAM_NUMBER", -1);
 
         updateTeamsRecycler();
-    }
 
-    public void createTeamActivityOnClick(View view){
-        Intent intent = new Intent(TeamsActivity.this, CreateTeamActivity.class);
-        startActivityForResult(intent, 1);
-    }
-
-    // Call Back method, update teams if successful
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1) {
-            updateTeamsRecycler();
-        }
     }
 
     public void updateTeamsRecycler(){
@@ -59,7 +46,8 @@ public class TeamsActivity extends AppCompatActivity{
             public void run() {
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
                 List<Team> allTeamsTemp = db.teamDao().getAll();
-                //Not sure why, but we can't do `allTeams = allTeamsTemp`  adding 1 by 1 works
+                // Not sure why, but we can't do `allTeams = allTeamsTemp' or
+                // 'allTeams = db.tD().getAll()`  adding 1 by 1 works
                 allTeams.clear();
                 allTeams.addAll(allTeamsTemp);
                 runOnUiThread(new Runnable() {
@@ -71,4 +59,14 @@ public class TeamsActivity extends AppCompatActivity{
             }
         }).start();
     }
+
+    public void onTeamClick(Team team){
+        Intent i = new Intent();
+        i.putExtra("TEAM_NAME", team.name);
+        i.putExtra("TEAM_ID", team.uid);
+        setResult(teamNumber, i);
+        finish();
+
+    }
+
 }

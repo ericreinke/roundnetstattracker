@@ -24,4 +24,35 @@ public interface PlayerProfileDAO {
 
     @Query("DELETE FROM player_profiles")
     void deleteAll();
+
+    @Query("SELECT * FROM player_profiles WHERE uid = :uid")
+    PlayerGameProfile getPlayerProfile(String uid);
+
+    @Query("UPDATE player_profiles SET " +
+            "totalFirstServe=:totalFirstServe," +
+            "totalSecondServe=:totalSecondServe," +
+            "firstServeFault=:firstServeFault," +
+            "secondServeFault=:secondServeFault," +
+            "ace=:ace," +
+            "aced=:aced," +
+            "putAwayFailure=:putAwayOpportunity," +
+            "putAwaySuccess=:putAwaySuccess," +
+            "error=:error," +
+            "defensiveTouch=:defensiveTouch," +
+            "defensiveGet=:defensiveGet " +
+            "WHERE uid=:PGPId;")
+    void updatePGP(
+            String PGPId,
+            int totalFirstServe,
+            int totalSecondServe,
+            int firstServeFault,
+            int secondServeFault,
+            int ace,
+            int aced,
+            int putAwayOpportunity,
+            int putAwaySuccess,
+            int error,
+            int defensiveTouch,
+            int defensiveGet
+    );
 }

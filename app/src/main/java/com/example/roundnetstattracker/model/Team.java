@@ -13,7 +13,7 @@ public class Team {
 
     @PrimaryKey
     @NonNull
-    public String uid = UUID.randomUUID().toString();
+    public String uid;
 
     public String name;
 
@@ -21,20 +21,23 @@ public class Team {
 
     public String player2Id;
 
-    @Ignore
-    public Player player1;
+    public Team(String uid, String name, String player1Id, String player2Id){
+        this.uid = uid;
+        this.name = name;
+        this.player1Id = player1Id;
+        this.player2Id = player2Id;
+    }
 
-    @Ignore
-    public Player player2;
-
-    public Team(String name){this.name = name; }
+    public Team(String name, String p1Id, String p2Id){
+        this.name = name;
+        this.player1Id = p1Id;
+        this.player2Id = p2Id;
+    }
 
     public Team(boolean anything){
         name = "team" + uid;
-        player1 = new Player(false);
-        player2 = new Player(false);
-        player1Id = player1.uid;
-        player2Id = player2.uid;
+//        player1Id = player1.uid;
+//        player2Id = player2.uid;
     }
 
 }

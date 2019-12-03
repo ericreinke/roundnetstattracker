@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.roundnetstattracker.OnRecyclerViewPlayerClickListener;
+import com.example.roundnetstattracker.room.OnRecyclerViewPlayerClickListener;
 import com.example.roundnetstattracker.R;
 import com.example.roundnetstattracker.model.Player;
 

@@ -24,4 +24,7 @@ public interface PlayerDAO {
 
     @Query("DELETE FROM players")
     void deleteAll();
+
+    @Query("SELECT * FROM players WHERE uid = :playerId")
+    Player getPlayer(String playerId);
 }

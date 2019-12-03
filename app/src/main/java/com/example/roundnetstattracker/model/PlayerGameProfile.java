@@ -4,82 +4,66 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.UUID;
 
 @Entity(tableName = "player_profiles")
 public class PlayerGameProfile implements Parcelable {
 
     @PrimaryKey
     @NonNull
-    public String uidString = UUID.randomUUID().toString();
+    public String uid;
 
-    @ColumnInfo(name = "name")
-    public String name;
+    public String playerName;
 
-    @ColumnInfo(name = "first_serve")
-    public int firstServe = 0;
+    public String playerId;
 
-    @ColumnInfo(name = "second_serve")
-    public int secondServe = 0;
+    public int totalFirstServe = 0;
 
-    @ColumnInfo(name = "first_serve_fault")
+    public int totalSecondServe = 0;
+
     public int firstServeFault = 0;
 
-    @ColumnInfo(name = "second_serve_fault")
     public int secondServeFault = 0;
 
-    @ColumnInfo(name = "ace")
     public int ace = 0;
 
-    @ColumnInfo(name = "aced")
     public int aced = 0;
 
-    @ColumnInfo(name = "put_away_opportunity")
-    public int putAwayOpportunity = 0;
+    public int putAwayFailure = 0;
 
-    @ColumnInfo(name = "put_away_success")
     public int putAwaySuccess = 0;
 
-    @ColumnInfo(name = "error")
     public int error = 0;
 
-    @ColumnInfo(name = "defensive_touch")
     public int defensiveTouch = 0;
 
-    @ColumnInfo(name = "defensive_get")
     public int defensiveGet = 0;
 
-    public PlayerGameProfile(){}
-
-    public PlayerGameProfile(String playerName){
-        name=playerName;
+    public PlayerGameProfile(String uid, String playerName, String playerId){
+        this.uid = uid;
+        this.playerName = playerName;
+        this.playerId = playerId;
     }
 
+    @Ignore
     public PlayerGameProfile(Parcel parcel) {
-        name = parcel.readString();
-        firstServe = parcel.readInt();
-        secondServe = parcel.readInt();
+        uid = parcel.readString();
+        playerName = parcel.readString();
+        playerId = parcel.readString();
+        totalFirstServe = parcel.readInt();
+        totalSecondServe = parcel.readInt();
         firstServeFault = parcel.readInt();
         secondServeFault = parcel.readInt();
         ace = parcel.readInt();
         aced = parcel.readInt();
-        putAwayOpportunity = parcel.readInt();
+        putAwayFailure = parcel.readInt();
         putAwaySuccess = parcel.readInt();
         error = parcel.readInt();
         defensiveTouch = parcel.readInt();
         defensiveGet = parcel.readInt();
-    }
-
-    public void setName(String name){
-        this.name= name;
-    }
-
-    public String getName(){
-        return this.name;
     }
 
     @Override
@@ -89,14 +73,16 @@ public class PlayerGameProfile implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(name);
-        parcel.writeInt(firstServe);
-        parcel.writeInt(secondServe);
+        parcel.writeString(uid);
+        parcel.writeString(playerName);
+        parcel.writeString(playerId);
+        parcel.writeInt(totalFirstServe);
+        parcel.writeInt(totalSecondServe);
         parcel.writeInt(firstServeFault);
         parcel.writeInt(secondServeFault);
         parcel.writeInt(ace);
         parcel.writeInt(aced);
-        parcel.writeInt(putAwayOpportunity);
+        parcel.writeInt(putAwayFailure);
         parcel.writeInt(putAwaySuccess);
         parcel.writeInt(error);
         parcel.writeInt(defensiveTouch);

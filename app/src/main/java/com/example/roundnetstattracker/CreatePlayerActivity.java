@@ -3,6 +3,7 @@ package com.example.roundnetstattracker;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.roundnetstattracker.builders.PlayerBuilder;
 import com.example.roundnetstattracker.model.Player;
 import com.example.roundnetstattracker.model.Team;
 import com.example.roundnetstattracker.room.AppDatabase;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CreatePlayerActivity extends AppCompatActivity {
 
@@ -31,11 +33,20 @@ public class CreatePlayerActivity extends AppCompatActivity {
     }
 
     public void createNewPlayerOnClick(View view){
+        // Replace the following line with a Toast saying we can't have an empty  name
+        System.out.println("player: '"+playerNameEditText.getText().toString()+"'");
+        if(playerNameEditText.getText().toString().equals("")) {
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"Missing player name",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         new Thread(new Runnable() {
             public void run() {
-                Player newPlayer = new Player(playerNameEditText.getText().toString());
+                Player newPlayer = new PlayerBuilder()
+                        .withName(playerNameEditText.getText().toString())
+                        .build();
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-                System.out.println("inserting");
                 db.playerDao().insertAll(newPlayer);
             }
         }).start();

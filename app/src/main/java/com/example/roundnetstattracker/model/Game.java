@@ -15,54 +15,39 @@ import java.util.UUID;
 @Entity(tableName = "games")
 public class Game implements Parcelable{
 
-    @Ignore
-    public TeamGameProfile teamGameProfileA;
+    @PrimaryKey
+    @NonNull
+    public String uid;
 
-    @Ignore
-    public TeamGameProfile teamGameProfileB;
+    public String teamAId;
 
-    @Ignore
-    public Team teamA;
+    public String teamBId;
 
-    @Ignore
-    public Team teamB;
+    public String teamAProfileId;
+
+    public String teamBProfileId;
 
     @Ignore
     public GameManager gm;
 
-    @ColumnInfo(name = "team_a_profile_id")
-    public  String teamAProfileId; // is a string uuid
+    public Game(){}
 
-    @ColumnInfo(name = "team_b_profile_id")
-    public  String teamBProfileId; // is a string uuid
-
-    @PrimaryKey
-    @NonNull
-    public  String uid = UUID.randomUUID().toString();
-
-    @Ignore
-    private ArrayList<String> rallies = new ArrayList<>();
-
-    public Game(){
-        System.out.println("creating game");
-        teamGameProfileA = new TeamGameProfile("replace me");
-        teamGameProfileB = new TeamGameProfile("repalce me");
-        teamAProfileId = teamGameProfileA.uid;
-        teamBProfileId = teamGameProfileB.uid;
-        gm = new GameManager();
-
+    public Game(String uid, String teamAId, String teamBId, String teamAProfileId, String teamBProfileId, GameManager gm){
+        this.uid = uid;
+        this.teamAId = teamAId;
+        this.teamBId = teamBId;
+        this.teamAProfileId = teamAProfileId;
+        this.teamBProfileId = teamBProfileId;
+        this.gm = gm;
     }
 
     private Game(Parcel parcel) {
-        teamGameProfileA = parcel.readParcelable(TeamGameProfile.class.getClassLoader());
-        teamGameProfileB = parcel.readParcelable(TeamGameProfile.class.getClassLoader());
+        uid = parcel.readString();
+        teamAId = parcel.readString();
+        teamBId = parcel.readString();
+        teamAProfileId = parcel.readString();
+        teamBProfileId = parcel.readString();
         gm = parcel.readParcelable(GameManager.class.getClassLoader());
-        rallies = parcel.createStringArrayList();
-
-
-    }
-    public void addRally(String rally){
-        rallies.add(rally);
     }
 
     @Override
@@ -72,9 +57,12 @@ public class Game implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(teamGameProfileA,0);
-        parcel.writeParcelable(teamGameProfileB,0);
-        parcel.writeParcelable(gm, 0);
+        parcel.writeString(uid);
+        parcel.writeString(teamAId);
+        parcel.writeString(teamBId);
+        parcel.writeString(teamAProfileId);
+        parcel.writeString(teamBProfileId);
+        parcel.writeParcelable(gm,0);
     }
 
     public static final Parcelable.Creator<Game> CREATOR=

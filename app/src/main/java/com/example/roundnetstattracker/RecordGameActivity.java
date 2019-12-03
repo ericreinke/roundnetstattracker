@@ -4,18 +4,25 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
 
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.example.roundnetstattracker.enums.States;
 import com.example.roundnetstattracker.model.Game;
+import com.example.roundnetstattracker.model.PlayerGameProfile;
+import com.example.roundnetstattracker.model.TeamGameProfile;
 import com.example.roundnetstattracker.room.AppDatabase;
 
 public class RecordGameActivity extends AppCompatActivity {
 
+    private final Logger log = Logger.getLogger(RecordGameActivity.class.getName());
     private final String SERVING = States.SERVING.getState();
     private final String RECEIVING = States.RECEIVING.getState();
     private final String ERROR = States.ERROR.getState();
@@ -36,12 +43,17 @@ public class RecordGameActivity extends AppCompatActivity {
     Button scoreBButton;
     Button saveButton;
     Button [] allButtons;
-    Game myGame = null;
+    Game myGame;
     StringBuilder currentRally;
     String state = SERVING ;
-    int[] empty = {};
 
-
+    TeamGameProfile teamAProfile;
+    TeamGameProfile teamBProfile;
+    PlayerGameProfile playerA1Profile;
+    PlayerGameProfile playerA2Profile;
+    PlayerGameProfile playerB1Profile;
+    PlayerGameProfile playerB2Profile;
+    PlayerGameProfile [] allPGP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +61,8 @@ public class RecordGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_record_game);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        log.setLevel(Level.INFO);
 
         teamATextView = findViewById(R.id.teamANameTextView);
         teamBTextView = findViewById(R.id.teamBNameTextView);
@@ -69,20 +83,28 @@ public class RecordGameActivity extends AppCompatActivity {
         rallyTextView = findViewById(R.id.rallyDebugTextView);
 
         myGame = getIntent().getExtras().getParcelable("GAME_OBJECT");
+        teamAProfile = getIntent().getExtras().getParcelable("TEAM_A_PROFILE");
+        teamBProfile = getIntent().getExtras().getParcelable("TEAM_B_PROFILE");
+        playerA1Profile = getIntent().getExtras().getParcelable("PLAYER_A_1_PROFILE");
+        playerA2Profile = getIntent().getExtras().getParcelable("PLAYER_A_2_PROFILE");
+        playerB1Profile = getIntent().getExtras().getParcelable("PLAYER_B_1_PROFILE");
+        playerB2Profile = getIntent().getExtras().getParcelable("PLAYER_B_2_PROFILE");
+        allPGP = new PlayerGameProfile[] {playerA1Profile, playerA2Profile, playerB1Profile, playerB2Profile};
+
         assert(myGame!=null);
 
         myGame.gm.populateGameManager(0, 1, 2, 3);
         myGame.gm.setNextServer(2);
         disableAllButtonsBut(myGame.gm.getServer());
 
-        teamATextView.setText(myGame.teamGameProfileA.getName());
-        teamBTextView.setText(myGame.teamGameProfileB.getName());
+        teamATextView.setText(teamAProfile.teamName);
+        teamBTextView.setText(teamBProfile.teamName);
         teamAScoreTextView.setText(Integer.toString(myGame.gm.getAScore()));
         teamBScoreTextView.setText(Integer.toString(myGame.gm.getBScore()));
-        teamAButton1.setText(myGame.teamGameProfileA.playerGameProfile1.getName());
-        teamAButton2.setText(myGame.teamGameProfileA.playerGameProfile2.getName());
-        teamBButton1.setText(myGame.teamGameProfileB.playerGameProfile1.getName());
-        teamBButton2.setText(myGame.teamGameProfileB.playerGameProfile2.getName());
+        teamAButton1.setText(playerA1Profile.playerName);
+        teamAButton2.setText(playerA2Profile.playerName);
+        teamBButton1.setText(playerB1Profile.playerName);
+        teamBButton2.setText(playerB2Profile.playerName);
         instructionTextView.setText("");
 
         currentRally = new StringBuilder();
@@ -93,53 +115,21 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     public void button1AOnClick(View view){
-        currentRally.append("0");
-        enableAllButtonsBut(0);
-
-        if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
-        else if(state.equals(ERROR)){
-            myGame.gm.updateGameManager(getBreakString(0));
-            rallyOver();
-        }
-
-        rallyTextView.setText(currentRally.toString());
+        onPlayerButtonClick(0);
     }
+
     public void button2AOnClick(View view){
-        currentRally.append("1");
-        enableAllButtonsBut(1);
-
-        if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
-        else if(state.equals(ERROR)){
-            myGame.gm.updateGameManager(getBreakString(1));
-            rallyOver();
-        }
-
-        rallyTextView.setText(currentRally.toString());
+        onPlayerButtonClick(1);
     }
+
     public void button1BOnClick(View view){
-        currentRally.append("2");
-        enableAllButtonsBut(2);
-
-        if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
-        else if(state.equals(ERROR)){
-            myGame.gm.updateGameManager(getBreakString(2));
-            rallyOver();
-        }
-
-        rallyTextView.setText(currentRally.toString());
+        onPlayerButtonClick(2);
     }
+
     public void button2BOnClick(View view){
-        currentRally.append("3");
-        enableAllButtonsBut(3);
-
-        if(state.equals(SERVING)){ setAndUpdateState(RECEIVING); }
-        else if(state.equals(ERROR)){
-            myGame.gm.updateGameManager(getBreakString(3));
-            rallyOver();
-        }
-
-        rallyTextView.setText(currentRally.toString());
+        onPlayerButtonClick(3);
     }
+
     public void errorOnClick(View view){
         currentRally.append("E");
         state = ERROR;
@@ -153,24 +143,48 @@ public class RecordGameActivity extends AppCompatActivity {
             currentRally.append("s");
             setAndUpdateState(SERVING);
         }
-        else if(currentRally.indexOf("f") < 0){
+        else{// if(currentRally.indexOf("f") < 0){
             currentRally.append("f");
-            myGame.gm.updateGameManager("not_a_break");
-            rallyOver();
-        }
-        else{
-            // we already have "F" and "f" and somehow we have another fault.  something's up
+            currentRally.append("D");
+            currentRally.append(myGame.gm.getReceivingTeam());
+            rallyOver("not_a_break");
         }
         rallyTextView.setText(currentRally.toString());
     }
 
-    public void saveGameOnClick(View view){
-        AppDatabase db = AppDatabase.getInstance(this.getApplicationContext());
+    private void onPlayerButtonClick(int player){
+        currentRally.append(player);
+        enableAllButtonsBut(player, myGame.gm.checkMustChangePossesion(currentRally.toString()) ?
+                myGame.gm.getTeammate(player) : player );
 
-        db.playerProfileDao().insertAll(myGame.teamGameProfileA.playerGameProfile1);
-        db.playerProfileDao().insertAll(myGame.teamGameProfileA.playerGameProfile2);
-        db.playerProfileDao().insertAll(myGame.teamGameProfileB.playerGameProfile1);
-        db.playerProfileDao().insertAll(myGame.teamGameProfileB.playerGameProfile2);
+        if(state.equals(SERVING)){
+            setAndUpdateState(RECEIVING);
+        }
+        else if(state.equals(ERROR)){
+            // We added the player already, at the start of this button method
+            currentRally.append("D");
+            currentRally.append((player/2)^1);
+            rallyOver(getBreakString(player));
+        }
+        rallyTextView.setText(currentRally.toString());
+    }
+
+    public void saveGame(View view){
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                db.playerProfileDao().insertAll(playerA1Profile, playerA2Profile, playerB1Profile, playerB2Profile);
+                db.teamProfileDAO().insertAll(teamAProfile, teamBProfile);
+                db.gameDao().insertAll(myGame);
+            }
+        });
+        t.start();
+        try{
+            t.join();
+        }catch(InterruptedException e){
+            System.out.println("Thread was interrupted.  I have no idea what this means");
+        }
+        finish();
     }
 
 
@@ -181,19 +195,80 @@ public class RecordGameActivity extends AppCompatActivity {
      * Sorry
      */
     public void plusScoreAOnClick(View view){
-        myGame.gm.updateGameManager(getBreakString(2));
-        rallyOver();
+        currentRally.append("D");
+        currentRally.append("0");
+        rallyOver(getBreakString(2));
     }
     public void plusScoreBOnClick(View view){
-        myGame.gm.updateGameManager(getBreakString(0));
-        rallyOver();
+        currentRally.append("D");
+        currentRally.append("1");
+        rallyOver(getBreakString(0));
     }
 
-    public void rallyOver(){
+    public void rallyOver(String breakString){
+        int server = myGame.gm.getServer();
+
+        //Analyze total(First/Second)Serve
+        if(currentRally.indexOf("S") >= 0){
+            allPGP[server].totalFirstServe++;
+            log.info("Increasing totalFirstServe for player " + server);
+        }
+        if(currentRally.indexOf("s") >= 0){
+            allPGP[server].totalSecondServe++;
+            log.info("Increasing totalSecondServe for player " + server);
+        }
+
+        //Analyze (first/second)ServeFault
+        if(currentRally.indexOf("F") >= 0){
+            allPGP[server].firstServeFault++;
+            log.info("Increasing firstServeFault for player "+ server);
+        }
+        if(currentRally.indexOf("f") >= 0){
+            allPGP[server].secondServeFault++;
+            log.info("Increasing secondServeFault for "+ server);
+        }
+
+        //Analyze Ace/Aced
+        if(rallyWasAce(currentRally.toString())){
+            allPGP[server].ace++;
+            allPGP[myGame.gm.getReceiver()].aced++;
+            log.info("Increasing ace for player "+ server);
+            log.info("Increasing aced for player "+ myGame.gm.getReceiver());
+        }
+
+        // Analyze Error
+        int errorPlayerIndex = currentRally.indexOf("E")+1;
+        if(errorPlayerIndex >= 1){
+            allPGP[Character.getNumericValue(currentRally.charAt(errorPlayerIndex))].error++;
+            log.info("Increasing error for player "+
+                    Character.getNumericValue(currentRally.charAt(errorPlayerIndex)));
+        }
+
+        // Analyze Put Away Success
+        int putAwayResult = putAwaySuccess(currentRally.toString());
+        if(putAwayResult >=0){
+            allPGP[putAwayResult].putAwaySuccess++;
+            log.info("Increasing putAwaySuccess for player "+putAwayResult);
+        }
+
+        // Analyze Put Away Failures
+        List<Integer> lof = putAwayFailures(currentRally.toString());
+        for(int i = 0; i < lof.size(); i++){
+            allPGP[lof.get(i)].putAwayFailure++;
+        }
+
+        // Analyze Defensive gets
+        List<Integer> lodg = defensiveGets(currentRally.toString());
+        for(int i = 0; i < lodg.size(); i++){
+            allPGP[lodg.get(i)].defensiveGet++;
+        }
+
+        myGame.gm.updateGameManager(breakString);
         teamAScoreTextView.setText(Integer.toString(myGame.gm.getAScore()));
         teamBScoreTextView.setText(Integer.toString(myGame.gm.getBScore()));
         instructionTextView.setText("");
-        myGame.addRally(currentRally.toString());
+        myGame.gm.addRally(currentRally.toString());
+        log.info("Added rally: "+ currentRally);
         currentRally.setLength(0);
         currentRally.append("S");
         setAndUpdateState(SERVING);
@@ -218,8 +293,8 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     public void setAndUpdateState(String newState){
+        log.info("Changing state from " + state + " to " + newState);
         state = newState;
-        System.out.println(state);
 
         if(state.equals(SERVING)){
             disableAllButtonsBut(myGame.gm.getServer());
@@ -230,10 +305,12 @@ public class RecordGameActivity extends AppCompatActivity {
         else if(state.equals(ERROR)){
             disableAllButtonsBut(0, 1, 2, 3);
             instructionTextView.setText("Please select who made the error");
-
         }
     }
 
+    /*
+     * Please come up with a more clever way.  At LEAST use an enum ffs.
+     */
     public String getBreakString(int player){ // take in the player who DIDN'T SCORE!!!
         if(myGame.gm.getServingTeam() == player/2){
             return "not_a_break";
@@ -243,53 +320,100 @@ public class RecordGameActivity extends AppCompatActivity {
         }
     }
 
+    public boolean rallyWasAce(String rally){
+        int serveIndex = rally.toLowerCase().lastIndexOf('s');
+        int servingTeam = Character.getNumericValue(rally.charAt(serveIndex+1))/2;
+        int receivingTeam = servingTeam^1;
 
+        //serving team has to score for it to be an ace (note this covers (S0Fs0fD1)
+        if(scoringTeam(rally) != servingTeam){ return false; }
 
-    public void saveGame(View view){
-        //======================================================
-        // We want to use a room data base for this pleaseeeeee
-        //======================================================
-//        GsonBuilder builder = new GsonBuilder();
-//        builder.setPrettyPrinting();
-//        Gson gson = builder.create();
-//        String myGameJson = gson.toJson(myGame);
-//        System.out.println(myGameJson);
-//
-//        String fileName = "games.json";
-//        FileOutputStream fos = null;
-//
-//        File dir = getFilesDir();
-//        File checkFile = new File(dir,fileName);
-//
-//        if(checkFile.exists()){
-//            myGameJson = ", " + myGameJson;
-//        }
-//
-//
-//        try {
-//            fos = openFileOutput(fileName, MODE_APPEND);
-//            fos.write(myGameJson.getBytes());
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }finally{
-//            if(fos != null){
-//                try{
-//                    fos.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-//
-//        Intent intent = new Intent(RecordGameActivity.this, GameDetailsActivity.class);
-//        intent.putExtra("GAME_OBJECT", myGame);
-//        //We need to either pass the Game object or the ID here.  Game object is probbably eaiser
-//        startActivity(intent);
+        //If the touch after serve is not opponent then it's an ace
+        if(Character.getNumericValue(rally.charAt(serveIndex+2))/2 == receivingTeam &&
+                Character.getNumericValue(rally.charAt(serveIndex+3)) <= 3){
+            return false;
+        }
+        return true;
     }
 
+    public int putAwaySuccess(String rally){
+        // If the rally was an ace, there can be no put away
+        if(rallyWasAce(rally)){ return -1; }
 
+        // If the rally was a double fault, there can be no put away
+        if(rally.indexOf("f") >= 0){ return -1; }
 
+        // Otherwise there MUST be a put away (errors still -> put away)
+        // We want to start at the 2nd LAST(or 3rd last, but just not the absolute last) character
+        // and keep going backwards to figure out who put it away (last to touch)
+        for(int i=rally.length()-2 ; i >=0; i--){
+            int currChar = Character.getNumericValue(rally.charAt(i));
+            if(currChar/2 == scoringTeam(rally)){
+                return currChar;
+            }
+        }
 
+        return -1; // This should never happen
+    }
+
+    /*
+     * This method is to analyze a rally and determine the number of put away failures and defensivet gets
+     * Note that putAwayFailure == defensiveGet in every rally
+     */
+    private List<Integer> putAwayFailuresAndDefensiveGets(String rally, int offset){
+        List<Integer> theList = new ArrayList<>();
+        if(rallyWasAce(rally)){ return theList; }
+        if(rally.indexOf("f") >= 0){ return theList; }
+
+        int startOfPossessionIndex = rally.toLowerCase().lastIndexOf("s")+2;
+
+        while(true) {
+            int teamPossession = Character.getNumericValue(rally.charAt(startOfPossessionIndex)) / 2;
+            int opposingTeam = teamPossession ^ 1;
+            int lastLastTeamTouchIndex = Math.max(rally.lastIndexOf((char)(teamPossession * 2 +48)),
+                    rally.lastIndexOf((char)(teamPossession * 2 + 49), startOfPossessionIndex));
+            int lastLastOpponentTeamTouch = Math.max(rally.lastIndexOf((char)(opposingTeam * 2+48)),
+                    rally.lastIndexOf((char)(opposingTeam * 2 + 49), startOfPossessionIndex));
+            int lastTeamTouchIndex = lastPossessionTouchIndex(startOfPossessionIndex, rally);
+
+            if (lastTeamTouchIndex < 0) break; // No more change of possessions;
+            if (lastLastTeamTouchIndex > lastTeamTouchIndex ||
+                    (lastLastOpponentTeamTouch > lastTeamTouchIndex && scoringTeam(rally) == opposingTeam)) {
+                theList.add(Character.getNumericValue(rally.charAt(lastTeamTouchIndex+offset)));
+                log.info("Increasing putAwayFailure for player " + Character.getNumericValue(rally.charAt(lastTeamTouchIndex+offset)));
+            }
+            startOfPossessionIndex = lastTeamTouchIndex + 1;
+        }
+        return theList;
+    }
+
+    private List<Integer> putAwayFailures(String rally){
+        return putAwayFailuresAndDefensiveGets(rally, 0);
+    }
+
+    private List<Integer> defensiveGets(String rally){
+        return putAwayFailuresAndDefensiveGets(rally, 1);
+    }
+
+    private int whoError(String rally){
+        if(rally.indexOf("E")<0) return -1;
+        return Character.getNumericValue(rally.charAt(rally.indexOf("E")+1));
+    }
+
+    private int scoringTeam(String rally){
+        return Character.getNumericValue(rally.charAt(rally.indexOf("D")+1));
+    }
+
+    private int lastPossessionTouchIndex(int startSearch, String rally){
+        for(int i=startSearch; i<rally.length(); i++){
+            int currTeamValue = Character.getNumericValue(rally.charAt(i))/2;
+            int nextTeamValue = Character.getNumericValue(rally.charAt(i+1))/2;
+
+            if(nextTeamValue != 0 && nextTeamValue != 1) return -1;
+            if(currTeamValue != 0 && currTeamValue != 1) return -1;
+
+            if(currTeamValue != nextTeamValue) return i;
+        }
+        return -1;
+    }
 }

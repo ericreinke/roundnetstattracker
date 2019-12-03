@@ -3,6 +3,8 @@ package com.example.roundnetstattracker.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class GameManager implements Parcelable {
 
     int server;
@@ -13,6 +15,7 @@ public class GameManager implements Parcelable {
     int [] scores;
     int [] playerAcross;
     boolean populated;
+    private ArrayList<String> rallies = new ArrayList<>();
 
     public GameManager(Parcel parcel) {
         server = parcel.readInt();
@@ -22,6 +25,7 @@ public class GameManager implements Parcelable {
         nextServer = parcel.readInt();
         scores = parcel.createIntArray();
         playerAcross = parcel.createIntArray();
+        rallies = parcel.createStringArrayList();
     }
 
     public GameManager(){//gm is unusable until populated
@@ -52,6 +56,10 @@ public class GameManager implements Parcelable {
         return nextServer;
     }
 
+    public void addRally(String rally){
+        rallies.add(rally);
+    }
+
     public void populateGameManager(int server, int serverTeammate, int receiver, int receiverTeammate){
         playerAcross = new int[4];
         scores = new int[2];
@@ -77,11 +85,11 @@ public class GameManager implements Parcelable {
         if(breakOrNot.equals("break")){
             scores[servingTeam]++;
 
-            receiver =  changeTeammate(receiver);
-            playerAcross[0] = changeTeammate(playerAcross[0]);
-            playerAcross[1] = changeTeammate(playerAcross[1]);
-            playerAcross[2] = changeTeammate(playerAcross[2]);
-            playerAcross[3] = changeTeammate(playerAcross[3]);
+            receiver =  getTeammate(receiver);
+            playerAcross[0] = getTeammate(playerAcross[0]);
+            playerAcross[1] = getTeammate(playerAcross[1]);
+            playerAcross[2] = getTeammate(playerAcross[2]);
+            playerAcross[3] = getTeammate(playerAcross[3]);
         }
         else if(!breakOrNot.equals("break")){
             scores[receivingTeam]++; // Note score is updated first
@@ -91,12 +99,25 @@ public class GameManager implements Parcelable {
             receiver = playerAcross[server];
             servingTeam ^= 1;
             receivingTeam ^= 1;
-            nextServer = changeTeammate(tempServer);
+            nextServer = getTeammate(tempServer);
         }
     }
 
+    /*
+     * Return true if a team has touched 3 times (they canNOT have another touch)
+     */
+    public boolean checkMustChangePossesion(String rally){
+        int currentTeam = Character.getNumericValue(rally.charAt(rally.length()-1))/2;
+        for(int i = 2; i < 4; i++){
+            if(Character.getNumericValue(rally.charAt(rally.length()-i))/2 != currentTeam){
+                return false;
+            }
+        }
+        return true;
+    }
+
     // 0->1, 1->0, 2->3, 3->2
-    public int changeTeammate(int player){return (player/2) * 2 + player%2^1;}
+    public int getTeammate(int player){return (player/2) * 2 + player%2^1;}
 
 
     @Override
@@ -110,8 +131,10 @@ public class GameManager implements Parcelable {
         parcel.writeInt(receiver);
         parcel.writeInt(servingTeam);
         parcel.writeInt(receivingTeam);
+        parcel.writeInt(nextServer);
         parcel.writeIntArray(scores);
         parcel.writeIntArray(playerAcross);
+        parcel.writeStringList(rallies);
     }
 
     public static final Parcelable.Creator<GameManager> CREATOR=

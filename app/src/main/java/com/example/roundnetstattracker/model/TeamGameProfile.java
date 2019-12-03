@@ -14,57 +14,41 @@ import java.util.UUID;
 @Entity(tableName = "team_profiles")
 public class TeamGameProfile implements Parcelable {
 
-    @Ignore
-    public PlayerGameProfile playerGameProfile1;
-    @Ignore
-    public PlayerGameProfile playerGameProfile2;
-
-    public String teamuid;
-
     @PrimaryKey
     @NonNull
-    public String uid = UUID.randomUUID().toString();
+    public String uid;
+
+    public String teamName;
+
+    public String playerGameProfile1Id;
+
+    public String playerGameProfile2Id;
+
+    public String teamUid;
+
     public int teamScore = -1;
-    public String name;
 
 
-    public TeamGameProfile(String teamName){
-        playerGameProfile1 = new PlayerGameProfile("playerGameProfile1");
-        playerGameProfile2 = new PlayerGameProfile("playerGameProfile2");
-        String name = teamName;
+    public TeamGameProfile(String uid, String teamName, String playerGameProfile1Id, String playerGameProfile2Id, String teamUid, int teamScore){
+        this.uid = uid;
+        this.teamName = teamName;
+        this.playerGameProfile1Id = playerGameProfile1Id;
+        this.playerGameProfile2Id = playerGameProfile2Id;
+        this.teamUid = teamUid;
+        this.teamScore = teamScore;
     }
-
-    public TeamGameProfile(){}
-    /*
-    Get team name.
-     */
-    public String getName(){
-        return this.name;
-    }
-
-    /*
-    Set team name.  In the future, retrieve from db
-     */
-    public void setName(String name){
-        this.name = name;
-    }
-
-    /*
-    This should be called only once when trying to save (db purposes).
-    For dynamic use, use the game GameManager
-     */
-    public void setTeamScore(int score){ this.teamScore = score; }
-
 
     /*
     Parcel methods
      */
-
+    @Ignore
     public TeamGameProfile(Parcel parcel) {
-        playerGameProfile1 = parcel.readParcelable(PlayerGameProfile.class.getClassLoader());
-        playerGameProfile2 = parcel.readParcelable(PlayerGameProfile.class.getClassLoader());
+        uid = parcel.readString();
+        teamName = parcel.readString();
+        playerGameProfile1Id = parcel.readString();
+        playerGameProfile2Id = parcel.readString();
+        teamUid = parcel.readString();
         teamScore = parcel.readInt();
-        name = parcel.readString();
     }
 
     @Override
@@ -74,9 +58,12 @@ public class TeamGameProfile implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeParcelable(playerGameProfile1,0);
-        parcel.writeParcelable(playerGameProfile2,0);
-        parcel.writeString(name);
+        parcel.writeString(uid);
+        parcel.writeString(teamName);
+        parcel.writeString(playerGameProfile1Id);
+        parcel.writeString(playerGameProfile2Id);
+        parcel.writeString(teamUid);
+        parcel.writeInt(teamScore);
     }
 
     public static final Parcelable.Creator<TeamGameProfile> CREATOR =

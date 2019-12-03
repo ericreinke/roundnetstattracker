@@ -41,7 +41,7 @@ public class PlayersActivity extends AppCompatActivity {
 
     public void createPlayerActivityOnClick(View view){
         Intent intent = new Intent(PlayersActivity.this, CreatePlayerActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     // Call Back method, update teams if successful
@@ -49,8 +49,6 @@ public class PlayersActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1) {
-            String message=data.getStringExtra("MESSAGE");
-            System.out.println(message);
             updatePlayersRecycler();
         }
     }
@@ -73,5 +71,4 @@ public class PlayersActivity extends AppCompatActivity {
             }
         }).start();
     }
-
 }

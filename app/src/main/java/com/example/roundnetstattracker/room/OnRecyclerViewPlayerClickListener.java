@@ -1,4 +1,4 @@
-package com.example.roundnetstattracker;
+package com.example.roundnetstattracker.room;
 
 import com.example.roundnetstattracker.model.Player;
 

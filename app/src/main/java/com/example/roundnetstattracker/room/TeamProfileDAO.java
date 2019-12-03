@@ -23,4 +23,7 @@ public interface TeamProfileDAO {
 
     @Query("DELETE FROM team_profiles")
     void deleteAll();
+
+    @Query("SELECT * FROM team_profiles WHERE uid = :teamProfile")
+    TeamGameProfile getTeamProfile(String teamProfile);
 }
