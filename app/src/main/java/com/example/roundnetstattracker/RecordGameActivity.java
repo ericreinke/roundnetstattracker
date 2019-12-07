@@ -170,6 +170,10 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     public void saveGame(View view){
+        // These two lines will save a couple db queries in GamesActivity (to display score)
+        teamAProfile.teamScore = myGame.gm.getAScore();
+        teamBProfile.teamScore = myGame.gm.getBScore();
+
         Thread t = new Thread(new Runnable() {
             public void run() {
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
@@ -357,7 +361,7 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     /*
-     * This method is to analyze a rally and determine the number of put away failures and defensivet gets
+     * This method is to analyze a rally and determine the number of put away failures and defensive gets
      * Note that putAwayFailure == defensiveGet in every rally
      */
     private List<Integer> putAwayFailuresAndDefensiveGets(String rally, int offset){
