@@ -36,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
+                db.gameDao().deleteAll();
                 db.teamDao().deleteAll();
                 db.playerDao().deleteAll();
                 db.playerProfileDao().deleteAll();

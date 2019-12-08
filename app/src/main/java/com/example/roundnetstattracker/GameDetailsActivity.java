@@ -20,7 +20,8 @@ import org.w3c.dom.Text;
 
 public class GameDetailsActivity extends AppCompatActivity {
 
-    private Game game = null;
+    private TeamGameProfile teamAProfile;
+    private TeamGameProfile teamBProfile;
     private PlayerGameProfile playerA1Profile;
     private PlayerGameProfile playerA2Profile;
     private PlayerGameProfile playerB1Profile;
@@ -66,8 +67,10 @@ public class GameDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        game = getIntent().getParcelableExtra("GAME");
-        assert(game!=null);
+        teamAProfile = getIntent().getParcelableExtra("TEAM_A");
+        teamBProfile = getIntent().getParcelableExtra("TEAM_B");
+        assert(teamAProfile!=null);
+        assert(teamBProfile!=null);
 
         tableName0TextView = findViewById(R.id.tableName0TextView);
         tableName1TextView = findViewById(R.id.tableName1TextView);
@@ -104,12 +107,10 @@ public class GameDetailsActivity extends AppCompatActivity {
         Thread t = new Thread(new Runnable() {
             public void run() {
                 AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-                TeamGameProfile TGPa = db.teamProfileDAO().getTeamProfile(game.teamAProfileId);
-                TeamGameProfile TGPb = db.teamProfileDAO().getTeamProfile(game.teamBProfileId);
-                playerA1Profile = db.playerProfileDao().getPlayerProfile(TGPa.playerGameProfile1Id);
-                playerA2Profile = db.playerProfileDao().getPlayerProfile(TGPa.playerGameProfile2Id);
-                playerB1Profile = db.playerProfileDao().getPlayerProfile(TGPb.playerGameProfile1Id);
-                playerB2Profile = db.playerProfileDao().getPlayerProfile(TGPb.playerGameProfile2Id);
+                playerA1Profile = db.playerProfileDao().getPlayerProfile(teamAProfile.playerGameProfile1Id);
+                playerA2Profile = db.playerProfileDao().getPlayerProfile(teamAProfile.playerGameProfile2Id);
+                playerB1Profile = db.playerProfileDao().getPlayerProfile(teamBProfile.playerGameProfile1Id);
+                playerB2Profile = db.playerProfileDao().getPlayerProfile(teamBProfile.playerGameProfile2Id);
                 allPGP = new PlayerGameProfile[] {playerA1Profile, playerA2Profile, playerB1Profile, playerB2Profile};
             }
         });
@@ -128,6 +129,7 @@ public class GameDetailsActivity extends AppCompatActivity {
                     1 - allPGP[i].firstServeFault/Math.max(1, allPGP[i].totalFirstServe),
                     1 - allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalSecondServe),
                     1 - allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalFirstServe)));
+            System.out.println(i + " " + allPGP[i].putAwaySuccess + " " + Math.max(1, (allPGP[i].putAwaySuccess + allPGP[i].putAwayFailure)));
             putawayCells[i].setText(String.format("%d",allPGP[i].putAwaySuccess/
                     Math.max(1, (allPGP[i].putAwaySuccess + allPGP[i].putAwayFailure))));
             aceCells[i].setText(String.format("%d:%d", allPGP[i].ace, allPGP[i].aced));

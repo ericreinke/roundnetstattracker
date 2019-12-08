@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roundnetstattracker.GameDetailsActivity;
 import com.example.roundnetstattracker.R;
-import com.example.roundnetstattracker.model.Game;
-import com.example.roundnetstattracker.room.OnRecyclerViewGameClickListener;
+import com.example.roundnetstattracker.model.TeamGameProfile;
 
 import java.util.List;
 
@@ -22,11 +21,13 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
 
     private static final String TAG = "GameRecyclerViewAdapter";
 
-    private List<Game> games;
+    private List<TeamGameProfile> teamAProfiles;
+    private List<TeamGameProfile> teamBProfiles;
     private Context context;
 
-    public GameRecyclerViewAdapter(Context context, List<Game> games) {
-        this.games = games;
+    public GameRecyclerViewAdapter(Context context, List<TeamGameProfile> teamAProfiles, List<TeamGameProfile> teamBProfiles) {
+        this.teamAProfiles = teamAProfiles;
+        this.teamBProfiles = teamBProfiles;
         this.context = context;
     }
 
@@ -41,18 +42,18 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-//        holder.team1Name.setText(games.get(position).teamGameProfileA.name);
-//        holder.team2Name.setText(games.get(position).teamGameProfileB.name);
-//        holder.team1Score.setText(games.get(position).teamGameProfileA.teamScore);
-//        holder.team2Score.setText(games.get(position).teamGameProfileB.teamScore);
+        holder.teamsTextView.setText(String.format("%s vs %s",
+                teamAProfiles.get(position).teamName, teamBProfiles.get(position).teamName));
+        holder.scoresTextView.setText(String.format("%s vs %s",
+                teamAProfiles.get(position).teamScore,teamBProfiles.get(position).teamScore));
 
         final int copy = position;
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, GameDetailsActivity.class);
-                i.putExtra("GAME", games.get(copy));
+                i.putExtra("TEAM_A", teamAProfiles.get(copy));
+                i.putExtra("TEAM_B", teamBProfiles.get(copy));
                 context.startActivity(i);
             }
         });
@@ -61,19 +62,19 @@ public class GameRecyclerViewAdapter extends RecyclerView.Adapter<GameRecyclerVi
 
     @Override
     public int getItemCount() {
-        return games.size();
+        return teamAProfiles.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView team1Name;
-        TextView team2Name;
+        TextView teamsTextView;
+        TextView scoresTextView;
         RelativeLayout parentLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            team1Name = itemView.findViewById(R.id.team1NameTextView);
-            team2Name = itemView.findViewById(R.id.team2NameTextView);
+            teamsTextView = itemView.findViewById(R.id.teamsTextView);
+            scoresTextView = itemView.findViewById(R.id.scoresTextView);
             parentLayout = itemView.findViewById(R.id.game_parent_layout);
         }
     }

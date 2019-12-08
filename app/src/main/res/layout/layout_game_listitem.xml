@@ -7,29 +7,20 @@
 
 
     <TextView
-        android:id="@+id/team1NameTextView"
+        android:id="@+id/teamsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
     <TextView
-        android:id="@+id/vsListItemText"
+        android:id="@+id/scoresTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/team1NameTextView"
-        android:text="@string/vs"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-    <TextView
-        android:id="@+id/team2NameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/vsListItemText"
+        android:layout_toRightOf="@id/teamsTextView"
         android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
 
 </RelativeLayout>
