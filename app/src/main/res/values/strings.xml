@@ -8,7 +8,9 @@
     <string name="place_holder">place_holder</string>
     <string name="vs">VS</string>
     <string name="title_activity_home">Home</string>
-    <string name="view_games">View My Games</string>
+    <string name="view_games">View Games</string>
+    <string name="view_teams">View Teams</string>
+    <string name="view_players">View Players</string>
     <string name="title_activity_view_games">View Games</string>
     <string name="title_activity_game_details">Game Details</string>
     <string name="return_home">Return Home</string>

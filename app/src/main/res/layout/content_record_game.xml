@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="@string/recordGameHeader"
         android:textAlignment="center"
@@ -66,23 +66,23 @@
         android:id="@+id/teamAButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
         android:onClick="button1AOnClick"
         android:text="@string/place_holder"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="@+id/teamANameTextView"
-        app:layout_constraintStart_toStartOf="@+id/teamANameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/instructionTextView" />
+        app:layout_constraintStart_toStartOf="@+id/teamANameTextView" />
 
     <Button
         android:id="@+id/teamBButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
         android:onClick="button1BOnClick"
         android:text="@string/place_holder"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="@+id/teamBNameTextView"
-        app:layout_constraintStart_toStartOf="@+id/teamBNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/instructionTextView" />
+        app:layout_constraintStart_toStartOf="@+id/teamBNameTextView" />
 
     <TextView
         android:id="@+id/teamAScoreTextView"
@@ -123,7 +123,7 @@
         android:id="@+id/instructionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/place_holder"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -136,23 +136,24 @@
         android:id="@+id/teamAButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:onClick="button2AOnClick"
         android:text="@string/place_holder"
         app:layout_constraintEnd_toEndOf="@+id/teamAButton1"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/teamAButton1"
-        app:layout_constraintTop_toBottomOf="@+id/teamAButton1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/teamBButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:onClick="button2BOnClick"
         android:text="@string/place_holder"
         app:layout_constraintEnd_toEndOf="@+id/teamBButton1"
         app:layout_constraintStart_toStartOf="@+id/teamBButton1"
-        app:layout_constraintTop_toBottomOf="@+id/teamBButton1" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/errorButton"
@@ -160,10 +161,11 @@
         android:layout_height="wrap_content"
         android:onClick="errorOnClick"
         android:text="@string/error"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="@+id/plusScoreBButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/plusScoreAButton"
-        app:layout_constraintTop_toBottomOf="@+id/plusScoreAButton" />
+        app:layout_constraintTop_toBottomOf="@+id/teamAButton2" />
 
     <Button
         android:id="@+id/serviceFaultButton"
@@ -187,24 +189,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:onClick="plusScoreAOnClick"
         android:text="+1 Score"
+        app:layout_constraintBottom_toTopOf="@+id/errorButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="@+id/teamAButton2"
-        app:layout_constraintTop_toBottomOf="@+id/teamAButton2" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/teamAButton2" />
 
     <Button
         android:id="@+id/plusScoreBButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        android:onClick="plusScoreBOnClick"
         android:text="+1 Score"
+        app:layout_constraintBottom_toTopOf="@+id/errorButton"
         app:layout_constraintEnd_toEndOf="@+id/teamBButton2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/teamBButton2"
-        android:onClick="plusScoreBOnClick"/>
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <TextView
         android:id="@+id/rallyDebugTextView"
@@ -214,6 +216,14 @@
         android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

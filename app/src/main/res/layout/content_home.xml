@@ -13,37 +13,39 @@
         android:id="@+id/viewGamesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="viewMyGames"
         android:text="@string/view_games"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="viewMyGames"/>
+        app:layout_constraintBottom_toTopOf="@+id/selectTeamButton"
+        app:layout_constraintEnd_toEndOf="@+id/selectTeamButton"
+        app:layout_constraintStart_toStartOf="@+id/selectTeamButton" />
 
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DELETE!!!"
-        tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="38dp"
-        android:onClick="deleteAllGames"/>
+        android:onClick="deleteAllGames"
+        android:text="DELETE EVERYTHING"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/selectTeamButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="selectTeamOnClick"
-        android:text="Teams"
+        android:text="@string/view_teams"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/selectPlayerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="selectPlayerOnClick"
-        android:text="Players"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/selectTeamButton" />
+        android:text="@string/view_players"
+        app:layout_constraintEnd_toEndOf="@+id/selectTeamButton"
+        app:layout_constraintStart_toStartOf="@+id/selectTeamButton"
+        app:layout_constraintTop_toBottomOf="@+id/selectTeamButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

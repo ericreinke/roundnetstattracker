@@ -9,55 +9,6 @@
     tools:context=".CreateGameActivity"
     tools:showIn="@layout/activity_new_game">
 
-    <EditText
-        android:textColorHint="@color/text_hint"
-        android:id="@+id/pB2TextView"
-        android:textColor="@color/text"
-        android:backgroundTint="@color/text"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="Team B Player 2"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/pB1TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pA1TextView" />
-
-    <EditText
-        android:textColorHint="@color/text_hint"
-        android:id="@+id/pB1TextView"
-        android:backgroundTint="@color/text"
-        android:textColor="@color/text"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Team B Player 1"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamATextView"
-        app:layout_constraintVertical_bias="0.6" />
-
-    <EditText
-        android:id="@+id/pA2TextView"
-        android:textColorHint="@color/text_hint"
-        android:textColor="@color/text"
-        android:backgroundTint="@color/text"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:hint="Team A Player 2"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/pB1TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pA1TextView" />
-
     <TextView
         android:id="@+id/newGameTextView"
         android:textColor="@color/text"
@@ -76,53 +27,38 @@
         android:id="@+id/teamATextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/text"
         android:ems="10"
         android:hint="Team A"
         android:inputType="textPersonName"
         android:singleLine="false"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text"
         android:textColorHint="@color/text_hint"
+        app:layout_constraintBottom_toTopOf="@+id/createGameAddTeam1Button"
         app:layout_constraintEnd_toStartOf="@+id/newGameTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newGameToolTipTextView" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/teamBTextView"
-        android:textColor="@color/text"
-        android:textColorHint="@color/text_hint"
-        android:backgroundTint="@color/text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:backgroundTint="@color/text"
         android:ems="10"
         android:hint="Team B"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/newGameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/newGameToolTipTextView" />
-
-    <EditText
-        android:id="@+id/pA1TextView"
-        android:textColorHint="@color/text_hint"
-        android:backgroundTint="@color/text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/text"
-        android:layout_width="150sp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Team A Player 1"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColorHint="@color/text_hint"
+        app:layout_constraintBottom_toTopOf="@+id/createGameAddTeam2Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamATextView"
-        app:layout_constraintVertical_bias="0.15" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/newGameTextView" />
 
     <Button
         android:id="@+id/finishSetupButton"
@@ -135,37 +71,13 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/newGameToolTipTextView"
-        android:textColor="@color/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/newGameToolTip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newGameTextView" />
-
-    <ImageView
-        android:id="@+id/netImageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/pB1TextView"
-        app:layout_constraintEnd_toStartOf="@+id/pB2TextView"
-        app:layout_constraintStart_toEndOf="@+id/pA2TextView"
-        app:layout_constraintTop_toBottomOf="@+id/pA1TextView"
-        app:srcCompat="@drawable/roundnetoverhead" />
-
-    <TextView
         android:id="@+id/vsTextView"
-        android:textColor="@color/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/vs"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="@+id/teamATextView"
         app:layout_constraintEnd_toStartOf="@+id/teamBTextView"
         app:layout_constraintStart_toEndOf="@+id/teamATextView" />
@@ -174,23 +86,36 @@
         android:id="@+id/createGameAddTeam1Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:onClick="addTeam1OnClick"
         android:text="Add Team"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="@+id/teamATextView"
-        app:layout_constraintStart_toStartOf="@+id/teamATextView"
-        app:layout_constraintTop_toBottomOf="@+id/teamATextView"
-        android:onClick="addTeam1OnClick"/>
+        app:layout_constraintStart_toStartOf="@+id/teamATextView" />
 
     <Button
         android:id="@+id/createGameAddTeam2Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:onClick="addTeam2OnClick"
         android:text="Add Team"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="@+id/teamBTextView"
-        app:layout_constraintStart_toStartOf="@+id/teamBTextView"
-        app:layout_constraintTop_toBottomOf="@+id/teamBTextView"
-        android:onClick="addTeam2OnClick"/>
+        app:layout_constraintStart_toStartOf="@+id/teamBTextView" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="357dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
