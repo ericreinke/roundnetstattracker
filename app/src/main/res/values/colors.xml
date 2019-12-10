@@ -6,4 +6,19 @@
     <color name="background">#424341</color>
     <color name="text">#EFCC2D</color>
     <color name="text_hint">#737473</color>
+    <color name="text_red">#DB504A</color>
+    <color name="text_blue">#5BC0EB</color>
+    <color name="white">#ffffff</color>
+    <color name="button_yellow">#fbe042</color>
+    <color name="button_yellow_bottom">#f0c43d</color>
+
+    <!-- some experimental colors:
+    Some kind of blueish teal:  4ADBC8
+    Sky/baby blue               5BC0EB
+    red                         FF3E41
+    blue tinted white           DCEDFF
+    Very blue                   2176FF
+    kinda dull red              DB504A
+    mute(?) yellow              FFE559
+    -->
 </resources>
