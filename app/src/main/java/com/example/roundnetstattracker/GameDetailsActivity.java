@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 public class GameDetailsActivity extends AppCompatActivity {
 
     private TeamGameProfile teamAProfile;
@@ -125,16 +127,18 @@ public class GameDetailsActivity extends AppCompatActivity {
 
         for(int i = 0; i < allPGP.length; i++){
             nameCells[i].setText(allPGP[i].playerName);
-            serveCells[i].setText(String.format("%d:%d:%d",
-                    1 - allPGP[i].firstServeFault/Math.max(1, allPGP[i].totalFirstServe),
-                    1 - allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalSecondServe),
-                    1 - allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalFirstServe)));
+            serveCells[i].setText(String.format(Locale.getDefault(), "%.0f%% : %.0f%%\n%.0f%% : %.0f%%",
+                    100*((float)1 - (float)allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalFirstServe)),
+                    100*((float)1 - (float)(allPGP[i].firstServeFault + allPGP[i].secondServeFault)/
+                            Math.max(1,(allPGP[i].totalFirstServe + allPGP[i].totalSecondServe))),
+                    100*((float)1 - (float)allPGP[i].firstServeFault/Math.max(1, allPGP[i].totalFirstServe)),
+                    100*((float)1 - (float)allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalSecondServe))));
             System.out.println(i + " " + allPGP[i].putAwaySuccess + " " + Math.max(1, (allPGP[i].putAwaySuccess + allPGP[i].putAwayFailure)));
-            putawayCells[i].setText(String.format("%d",allPGP[i].putAwaySuccess/
+            putawayCells[i].setText(String.format(Locale.getDefault(),"%.0f%%",100* (float)allPGP[i].putAwaySuccess/
                     Math.max(1, (allPGP[i].putAwaySuccess + allPGP[i].putAwayFailure))));
-            aceCells[i].setText(String.format("%d:%d", allPGP[i].ace, allPGP[i].aced));
-            errorCells[i].setText(Integer.toString(allPGP[i].error));
-            defenseCells[i].setText(Integer.toString(allPGP[i].defensiveGet));
+            aceCells[i].setText(String.format(Locale.getDefault(), "%d : %d", allPGP[i].ace, allPGP[i].aced));
+            errorCells[i].setText(String.format(Locale.getDefault(), "%d", allPGP[i].error));
+            defenseCells[i].setText(String.format(Locale.getDefault(), "%d", allPGP[i].defensiveGet));
         }
 
     }

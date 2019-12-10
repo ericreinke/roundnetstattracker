@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight=".3"
+                android:layout_weight=".2"
                 android:layout_gravity="center"
                 android:padding="5dp" />
 
@@ -45,7 +45,7 @@
                 android:id="@+id/tableName0TextView"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight=".175"
+                android:layout_weight=".2"
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="s" />
@@ -54,7 +54,7 @@
                 android:id="@+id/tableName1TextView"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight=".175"
+                android:layout_weight=".2"
                 android:padding="5dp"
                 android:gravity="center"
                 android:text="7charac" />
@@ -63,7 +63,7 @@
                 android:id="@+id/tableName2TextView"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight=".175"
+                android:layout_weight=".2"
                 android:padding="5dp"
                 android:text="6chars"
                 android:gravity="center" />
@@ -72,7 +72,7 @@
                 android:id="@+id/tableName3TextView"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight=".175"
+                android:layout_weight=".2"
                 android:padding="5dp"
                 android:text="5char"
                 android:gravity="center" />
@@ -90,205 +90,229 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".3"
+                            android:layout_weight=".2"
                             android:gravity="center"
-                            android:padding="5dp"
-                            android:text="Serve % (1st:2nd:Overall)"
+                            android:layout_gravity="center"
+                            android:text="Serve %\n(Overall:Avg:1st:2nd)"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                         <TextView
                             android:id="@+id/tableServe0TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="test"/>
                         <TextView
                             android:id="@+id/tableServe1TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="test"/>
                         <TextView
                             android:id="@+id/tableServe2TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="test"/>
                         <TextView
                             android:id="@+id/tableServe3TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="test"/>
                     </TableRow>
                     <TableRow>
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight=".3"
+                            android:layout_weight=".2"
                             android:layout_height="48dp"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="Put-Away %"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                         <TextView
                             android:id="@+id/tablePutaway0TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tablePutaway1TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tablePutaway2TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tablePutaway3TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                     </TableRow>
 
 
                     <TableRow>
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight=".3"
+                            android:layout_weight=".2"
                             android:layout_height="48dp"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="Ace:Aced"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                         <TextView
                             android:id="@+id/tableAce0TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableAce1TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableAce2TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableAce3TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                     </TableRow>
 
                     <TableRow>
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight=".3"
+                            android:layout_weight=".2"
                             android:layout_height="48dp"
                             android:padding="5dp"
                             android:gravity="center"
+                            android:layout_gravity="center"
                             android:text="Errors"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                         <TextView
                             android:id="@+id/tableError0TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableError1TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableError2TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableError3TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                     </TableRow>
 
                     <TableRow>
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight=".3"
+                            android:layout_weight=".2"
                             android:layout_height="48dp"
                             android:padding="5dp"
                             android:gravity="center"
-                            android:text="Defensive Touch:Get"
+                            android:layout_gravity="center"
+                            android:text="Defensive\nTouch:Get"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
                         <TextView
                             android:id="@+id/tableDefense0TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableDefense1TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableDefense2TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                         <TextView
                             android:id="@+id/tableDefense3TextView"
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_gravity="center"/>
                     </TableRow>
 
                     <TableRow>
                         <TextView
                             android:layout_width="0dp"
-                            android:layout_weight=".3"
+                            android:layout_weight=".2"
                             android:layout_height="48dp"
                             android:padding="5dp"
                             android:gravity="center"
@@ -297,25 +321,25 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"/>
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"/>
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"/>
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="48dp"
-                            android:layout_weight=".175"
+                            android:layout_weight=".2"
                             android:padding="5dp"
                             android:gravity="center"/>
                     </TableRow>
