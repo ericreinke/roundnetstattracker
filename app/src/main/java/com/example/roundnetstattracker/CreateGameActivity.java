@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.roundnetstattracker.builders.GameBuilder;
@@ -125,7 +126,12 @@ public class CreateGameActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1) {
+        if(data==null){
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"Did not receive any team data",Toast.LENGTH_LONG).show();
+            return;
+        }
+        else if(requestCode == 1) {
             teamAId = data.getStringExtra("TEAM_ID");
             teamATextView.setText(data.getStringExtra("TEAM_NAME"));
             new Thread(new Runnable() {
