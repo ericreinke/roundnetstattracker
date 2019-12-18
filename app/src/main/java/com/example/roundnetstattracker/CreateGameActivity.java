@@ -54,60 +54,6 @@ public class CreateGameActivity extends AppCompatActivity {
 
         teamATextView = findViewById(R.id.teamATextView);
         teamBTextView = findViewById(R.id.teamBTextView);
-        Button doneButton = findViewById(R.id.finishSetupButton);
-
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PlayerGameProfile ppA1 = new PlayerGameProfileBuilder()
-                        .withPlayerId(pA1.uid)
-                        .withPlayerName(pA1.name)
-                        .build();
-                PlayerGameProfile ppA2 = new PlayerGameProfileBuilder()
-                        .withPlayerId(pA2.uid)
-                        .withPlayerName(pA2.name)
-                        .build();
-                PlayerGameProfile ppB1 = new PlayerGameProfileBuilder()
-                        .withPlayerId(pB1.uid)
-                        .withPlayerName(pB1.name)
-                        .build();
-                PlayerGameProfile ppB2 = new PlayerGameProfileBuilder()
-                        .withPlayerId(pB2.uid)
-                        .withPlayerName(pB2.name)
-                        .build();
-
-                TeamGameProfile teamAProfile = new TeamGameProfileBuilder()
-                        .withTeamId(teamAId)
-                        .withPlayerGameProfile1Id(ppA1.uid)
-                        .withPlayerGameProfile2Id(ppA2.uid)
-                        .withTeamName(teamA.name)
-                        .build();
-                TeamGameProfile teamBProfile = new TeamGameProfileBuilder()
-                        .withTeamId(teamBId)
-                        .withPlayerGameProfile1Id(ppB1.uid)
-                        .withPlayerGameProfile2Id(ppB2.uid)
-                        .withTeamName(teamB.name)
-                        .build();
-
-                Game myGame = new GameBuilder()
-                    .withTeamAId(teamAId)
-                    .withTeamBId(teamBId)
-                    .withTeamAProfileId(teamAProfile.uid)
-                    .withTeamBProfileId(teamBProfile.uid)
-                    .build();
-
-                Intent intent = new Intent(CreateGameActivity.this, RecordGameActivity.class);
-                intent.putExtra("GAME_OBJECT", myGame);
-                intent.putExtra("TEAM_A_PROFILE", teamAProfile);
-                intent.putExtra("TEAM_B_PROFILE", teamBProfile);
-                intent.putExtra("PLAYER_A_1_PROFILE",ppA1);
-                intent.putExtra("PLAYER_A_2_PROFILE",ppA2);
-                intent.putExtra("PLAYER_B_1_PROFILE",ppB1);
-                intent.putExtra("PLAYER_B_2_PROFILE",ppB2);
-
-                startActivity(intent);
-            }
-        });
     }
 
     public void addTeam1OnClick(View view){
@@ -155,5 +101,56 @@ public class CreateGameActivity extends AppCompatActivity {
                 }
             }).start();
         }
+    }
+
+    public void doneOnClick (View view){
+        PlayerGameProfile ppA1 = new PlayerGameProfileBuilder()
+                .withPlayerId(pA1.uid)
+                .withPlayerName(pA1.name)
+                .build();
+        PlayerGameProfile ppA2 = new PlayerGameProfileBuilder()
+                .withPlayerId(pA2.uid)
+                .withPlayerName(pA2.name)
+                .build();
+        PlayerGameProfile ppB1 = new PlayerGameProfileBuilder()
+                .withPlayerId(pB1.uid)
+                .withPlayerName(pB1.name)
+                .build();
+        PlayerGameProfile ppB2 = new PlayerGameProfileBuilder()
+                .withPlayerId(pB2.uid)
+                .withPlayerName(pB2.name)
+                .build();
+
+        TeamGameProfile teamAProfile = new TeamGameProfileBuilder()
+                .withTeamId(teamAId)
+                .withPlayerGameProfile1Id(ppA1.uid)
+                .withPlayerGameProfile2Id(ppA2.uid)
+                .withTeamName(teamA.name)
+                .build();
+        TeamGameProfile teamBProfile = new TeamGameProfileBuilder()
+                .withTeamId(teamBId)
+                .withPlayerGameProfile1Id(ppB1.uid)
+                .withPlayerGameProfile2Id(ppB2.uid)
+                .withTeamName(teamB.name)
+                .build();
+
+        Game myGame = new GameBuilder()
+                .withTeamAId(teamAId)
+                .withTeamBId(teamBId)
+                .withTeamAProfileId(teamAProfile.uid)
+                .withTeamBProfileId(teamBProfile.uid)
+                .build();
+
+        Intent intent = new Intent(CreateGameActivity.this, RecordGameActivity.class);
+        intent.putExtra("GAME_OBJECT", myGame);
+        intent.putExtra("TEAM_A_PROFILE", teamAProfile);
+        intent.putExtra("TEAM_B_PROFILE", teamBProfile);
+        intent.putExtra("PLAYER_A_1_PROFILE",ppA1);
+        intent.putExtra("PLAYER_A_2_PROFILE",ppA2);
+        intent.putExtra("PLAYER_B_1_PROFILE",ppB1);
+        intent.putExtra("PLAYER_B_2_PROFILE",ppB2);
+
+        startActivity(intent);
+        finish();
     }
 }

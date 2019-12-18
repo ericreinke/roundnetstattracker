@@ -43,16 +43,12 @@ public class HomeActivity extends AppCompatActivity {
                 db.teamProfileDAO().deleteAll();
             }
         }).start();
-
-
     }
 
     /*
     onClick method.
      */
     public void newGame(View view){
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
         Intent intent = new Intent(HomeActivity.this, CreateGameActivity.class);
         startActivity(intent);
     }

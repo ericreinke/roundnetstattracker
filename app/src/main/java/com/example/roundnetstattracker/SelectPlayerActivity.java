@@ -2,6 +2,7 @@ package com.example.roundnetstattracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.roundnetstattracker.model.Player;
 import com.example.roundnetstattracker.recycler.SelectPlayerRecyclerViewAdapter;
@@ -66,5 +67,17 @@ public class SelectPlayerActivity extends AppCompatActivity implements OnRecycle
         i.putExtra("PLAYER_NAME", player.name);
         setResult(playerNumber,i);
         finish();
+    }
+
+    public void createNewPlayerOnClick (View view){
+        Intent i = new Intent(SelectPlayerActivity.this, CreatePlayerActivity.class);
+        startActivityForResult(i, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data == null) return;
+        updatePlayersRecycler();
     }
 }

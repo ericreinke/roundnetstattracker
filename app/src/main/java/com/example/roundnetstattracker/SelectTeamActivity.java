@@ -2,6 +2,7 @@ package com.example.roundnetstattracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.roundnetstattracker.model.Team;
 import com.example.roundnetstattracker.recycler.SelectTeamRecyclerViewAdapter;
@@ -67,6 +68,18 @@ public class SelectTeamActivity extends AppCompatActivity implements OnRecyclerV
         setResult(teamNumber, i);
         finish();
 
+    }
+
+    public void createNewTeamOnClick(View view){
+        Intent i = new Intent(SelectTeamActivity.this, CreateTeamActivity.class);
+        startActivityForResult(i, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data == null) return;
+        updateTeamsRecycler();
     }
 
 }

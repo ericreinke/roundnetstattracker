@@ -17,7 +17,6 @@
     <color name="red_team">#FF3E41</color>
     <color name="white_disabled">#90ffffff</color>
     <color name="button_white_bottom_disabled">#90DADADA</color>
-    <color name="disabled_text">#7f7f7f</color>
     <color name="blue_team_disabled">#50007bff</color>
     <color name="red_team_disabled">#50FF3E41</color>
     <!-- some experimental colors:
