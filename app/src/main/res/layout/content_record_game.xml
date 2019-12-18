@@ -18,7 +18,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/recordGameHeader"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="@color/text"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,26 +64,28 @@
 
     <Button
         android:id="@+id/teamAButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/buttonshape_record_names"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_selector"
         android:onClick="button1AOnClick"
         android:text="@string/place_holder"
+        android:textColor="@drawable/blue_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/teamBButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/buttonshape_record_names"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_selector"
         android:onClick="button1BOnClick"
         android:text="@string/place_holder"
+        android:textColor="@drawable/red_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
@@ -119,6 +121,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:onClick="saveGame"
+        android:background="@drawable/button_selector"
         android:text="save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -127,61 +130,65 @@
         android:id="@+id/instructionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/place_holder"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/text"
+        app:layout_constraintBottom_toTopOf="@+id/teamAButton1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/teamANameTextView" />
 
     <Button
         android:id="@+id/teamAButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_selector"
         android:onClick="button2AOnClick"
-        android:background="@drawable/buttonshape_record_names"
         android:text="@string/place_holder"
+        android:textColor="@drawable/blue_text_selector"
         app:layout_constraintEnd_toEndOf="@+id/teamAButton1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/teamAButton1"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toBottomOf="@+id/teamAButton1" />
 
     <Button
         android:id="@+id/teamBButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_selector"
         android:onClick="button2BOnClick"
-        android:background="@drawable/buttonshape_record_names"
+        android:textColor="@drawable/red_text_selector"
         android:text="@string/place_holder"
         app:layout_constraintEnd_toEndOf="@+id/teamBButton1"
         app:layout_constraintStart_toStartOf="@+id/teamBButton1"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintTop_toBottomOf="@+id/teamBButton1" />
 
     <Button
         android:id="@+id/errorButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape_record_buttons_big"
+        android:layout_width="225dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_selector"
         android:onClick="errorOnClick"
         android:text="@string/error"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintTop_toBottomOf="@+id/teamAButton2"
-        tools:layout_editor_absoluteX="93dp" />
+        app:layout_constraintEnd_toEndOf="@+id/plusScoreBButton"
+        app:layout_constraintStart_toStartOf="@+id/plusScoreAButton"
+        app:layout_constraintTop_toBottomOf="@+id/teamAButton2" />
 
     <Button
         android:id="@+id/serviceFaultButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/buttonshape_record_buttons_big"
+        android:background="@drawable/button_selector"
         android:onClick="serviceFaultOnClick"
         android:text="@string/service_fault"
-        app:layout_constraintTop_toBottomOf="@+id/errorButton"
-        tools:layout_editor_absoluteX="93dp" />
+        app:layout_constraintEnd_toEndOf="@+id/errorButton"
+        app:layout_constraintStart_toStartOf="@+id/errorButton"
+        app:layout_constraintTop_toBottomOf="@+id/errorButton" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -192,25 +199,27 @@
 
     <Button
         android:id="@+id/plusScoreAButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="104.5dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/buttonshape_record_buttons_small"
+        android:background="@drawable/button_selector"
         android:onClick="plusScoreAOnClick"
         android:text="+1 Score"
+        android:textColor="@drawable/blue_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/errorButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline" />
 
     <Button
         android:id="@+id/plusScoreBButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="104.5dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/buttonshape_record_buttons_small"
+        android:background="@drawable/button_selector"
         android:onClick="plusScoreBOnClick"
         android:text="+1 Score"
+        android:textColor="@drawable/red_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/errorButton"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
