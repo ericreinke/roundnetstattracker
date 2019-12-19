@@ -80,16 +80,40 @@ public class GameManager implements Parcelable {
 
     public void setNextServer(int nextServer){this.nextServer = nextServer;}
 
+    /*
+     * Takes in the last rally to occur and will revert the the GameManager
+     */
+    public void reverseGameManager(){
+        int lastServer = Character.getNumericValue(rallies.get(rallies.size()-1).charAt(1));
+
+        if(lastServer == server){ // Last point was recorded as a break (WLOG; an ace)
+            receiver = getTeammate(receiver);
+            scores[servingTeam]--;
+            changeAcross();
+        }
+        else{ // Last point was recorded as a receiving point (change server/servingteam)
+            // Note playerAcross did not change
+            int tempNext = nextServer;
+            nextServer = server;
+            server = getTeammate(tempNext);
+            receiver = playerAcross[server]; // Note server has already been reverted
+            servingTeam^=1;
+            receivingTeam^=1;
+            scores[receivingTeam]--; // Note receivingTeam has already been reverted
+        }
+        rallies.remove(rallies.size()-1);
+    }
+
+    /*
+     * Takes a string indicating if the point was a break or not.
+     * Will update all (6) fields accordingly
+     */
     public void updateGameManager(String breakOrNot){
         assert(nextServer!=-1);
         if(breakOrNot.equals("break")){
             scores[servingTeam]++;
-
             receiver =  getTeammate(receiver);
-            playerAcross[0] = getTeammate(playerAcross[0]);
-            playerAcross[1] = getTeammate(playerAcross[1]);
-            playerAcross[2] = getTeammate(playerAcross[2]);
-            playerAcross[3] = getTeammate(playerAcross[3]);
+            changeAcross();
         }
         else if(!breakOrNot.equals("break")){
             scores[receivingTeam]++; // Note score is updated first
@@ -118,6 +142,13 @@ public class GameManager implements Parcelable {
 
     // 0->1, 1->0, 2->3, 3->2
     public int getTeammate(int player){return (player/2) * 2 + player%2^1;}
+
+    public void changeAcross(){
+        playerAcross[0] = getTeammate(playerAcross[0]);
+        playerAcross[1] = getTeammate(playerAcross[1]);
+        playerAcross[2] = getTeammate(playerAcross[2]);
+        playerAcross[3] = getTeammate(playerAcross[3]);
+    }
 
 
     @Override

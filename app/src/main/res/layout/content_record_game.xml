@@ -65,9 +65,8 @@
     <Button
         android:id="@+id/teamAButton1"
         android:layout_width="150dp"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/button_selector"
         android:onClick="button1AOnClick"
         android:text="@string/place_holder"
@@ -79,9 +78,8 @@
     <Button
         android:id="@+id/teamBButton1"
         android:layout_width="150dp"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/button_selector"
         android:onClick="button1BOnClick"
         android:text="@string/place_holder"
@@ -94,7 +92,7 @@
         android:id="@+id/teamAScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/place_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/text"
@@ -106,7 +104,7 @@
         android:id="@+id/teamBScoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/place_holder"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/text"
@@ -142,7 +140,7 @@
     <Button
         android:id="@+id/teamAButton2"
         android:layout_width="150dp"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_selector"
         android:onClick="button2AOnClick"
@@ -156,7 +154,7 @@
     <Button
         android:id="@+id/teamBButton2"
         android:layout_width="150dp"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/button_selector"
         android:onClick="button2BOnClick"
@@ -169,26 +167,26 @@
     <Button
         android:id="@+id/errorButton"
         android:layout_width="225dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_selector"
         android:onClick="errorOnClick"
         android:text="@string/error"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="@+id/plusScoreBButton"
-        app:layout_constraintStart_toStartOf="@+id/plusScoreAButton"
-        app:layout_constraintTop_toBottomOf="@+id/teamAButton2" />
+        app:layout_constraintBottom_toTopOf="@+id/serviceFaultButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/serviceFaultButton"
         android:layout_width="225dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="40dp"
         android:background="@drawable/button_selector"
         android:onClick="serviceFaultOnClick"
         android:text="@string/service_fault"
-        app:layout_constraintEnd_toEndOf="@+id/errorButton"
-        app:layout_constraintStart_toStartOf="@+id/errorButton"
-        app:layout_constraintTop_toBottomOf="@+id/errorButton" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamAButton2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -200,7 +198,7 @@
     <Button
         android:id="@+id/plusScoreAButton"
         android:layout_width="104.5dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_selector"
@@ -213,7 +211,7 @@
     <Button
         android:id="@+id/plusScoreBButton"
         android:layout_width="104.5dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_selector"
@@ -237,8 +235,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.4" />
 
+    <Button
+        android:id="@+id/hinderButton"
+        android:layout_width="220dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_selector"
+        android:onClick="hinderOnClick"
+        android:text="Hinder\n(Cancel current rally)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/serviceFaultButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

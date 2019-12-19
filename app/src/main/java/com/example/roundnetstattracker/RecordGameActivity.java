@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class RecordGameActivity extends AppCompatActivity {
     Button scoreAButton;
     Button scoreBButton;
     Button saveButton;
+    Button hinderButton;
     Button [] allButtons;
     Game myGame;
     StringBuilder currentRally;
@@ -77,6 +79,7 @@ public class RecordGameActivity extends AppCompatActivity {
         serviceFaultButton = findViewById(R.id.serviceFaultButton);
         scoreAButton = findViewById(R.id.plusScoreAButton);
         scoreBButton = findViewById(R.id.plusScoreBButton);
+        hinderButton = findViewById(R.id.hinderButton);
         allButtons = new Button [] {teamAButton1, teamAButton2, teamBButton1, teamBButton2,
                 errorButton, serviceFaultButton, scoreAButton, scoreBButton};
         saveButton = findViewById(R.id.saveButton);
@@ -153,6 +156,7 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     private void onPlayerButtonClick(int player){
+        hinderButton.setText("Hinder\n(Cancel current rally)");
         currentRally.append(player);
         enableAllButtonsBut(player, myGame.gm.checkMustChangePossesion(currentRally.toString()) ?
                 myGame.gm.getTeammate(player) : player );
@@ -167,6 +171,28 @@ public class RecordGameActivity extends AppCompatActivity {
             rallyOver(getBreakString(player));
         }
         rallyTextView.setText(currentRally.toString());
+    }
+
+    public void hinderOnClick(View view){
+        if(myGame.gm.getAScore() == 0 && myGame.gm.getBScore() == 0){
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"No more rallies to undo",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(state==SERVING){
+            myGame.gm.reverseGameManager(); // This removes the last rally and reverses gm
+            instructionTextView.setText("Removed previous rally");
+        }
+        else{
+            instructionTextView.setText("Cancelled current rally");
+        }
+        currentRally.setLength(0);
+        currentRally.append("S");
+        setAndUpdateState(SERVING);
+        teamAScoreTextView.setText(Integer.toString(myGame.gm.getAScore()));
+        teamBScoreTextView.setText(Integer.toString(myGame.gm.getBScore()));
+
+
     }
 
     public void saveGame(View view){
@@ -276,6 +302,7 @@ public class RecordGameActivity extends AppCompatActivity {
         currentRally.setLength(0);
         currentRally.append("S");
         setAndUpdateState(SERVING);
+        hinderButton.setText("Undo last rally");
     }
 
     public void enableAllButtonsBut(int ... buttons){
