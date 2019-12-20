@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Button deleteEverythingButton = findViewById(R.id.deleteButton);
+        deleteEverythingButton.setEnabled(false);
     }
 
     /*

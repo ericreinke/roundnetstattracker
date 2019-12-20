@@ -14,7 +14,9 @@ public class GameManager implements Parcelable {
     int nextServer;
     int [] scores;
     int [] playerAcross;
-    boolean populated;
+    boolean firstServerPopulated;
+    boolean secondServerPopulated;
+    boolean firstReceiverPopulated;
     private ArrayList<String> rallies = new ArrayList<>();
 
     public GameManager(Parcel parcel) {
@@ -29,11 +31,28 @@ public class GameManager implements Parcelable {
     }
 
     public GameManager(){//gm is unusable until populated
-        populated=false;
+        server = -1;
+        receiver = -1;
+        servingTeam = -1;
+        receivingTeam = -1;
+        nextServer = -1;
+        scores = new int[2]; // default = 0
+        playerAcross = new int[4];
+        playerAcross[0] = -1;
+        playerAcross[1] = -1;
+        playerAcross[2] = -1;
+        playerAcross[3] = -1;
+        firstServerPopulated = false;
+        secondServerPopulated = false;
+        firstReceiverPopulated = false;
     }
 
     public int getServer() {
         return server;
+    }
+
+    public int getNextServer() {
+        return nextServer;
     }
 
     public int getReceiver() {
@@ -52,22 +71,17 @@ public class GameManager implements Parcelable {
         return receivingTeam;
     }
 
-    public int getNextServer() {
-        return nextServer;
-    }
+    public void populateGameManager(int server, int receiver, int nextServer){
+        int receiverTeammate = getTeammate(receiver);
+        int serverTeammate = getTeammate(server);
 
-    public void addRally(String rally){
-        rallies.add(rally);
-    }
-
-    public void populateGameManager(int server, int serverTeammate, int receiver, int receiverTeammate){
         playerAcross = new int[4];
         scores = new int[2];
         this.server = server;
         this.receiver = receiver;
         this.servingTeam = server/2;
         this.receivingTeam = receiver/2;
-        this.nextServer = -1; //needs to be updated in a separate call by user.
+        this.nextServer = nextServer;
         playerAcross[server] = receiver;
         playerAcross[receiver] = server;
         playerAcross[serverTeammate] = receiverTeammate;
@@ -75,10 +89,12 @@ public class GameManager implements Parcelable {
         scores[0] = 0;
         scores[1] = 0;
 
-        populated=true;
     }
 
-    public void setNextServer(int nextServer){this.nextServer = nextServer;}
+
+    public void addRally(String rally){
+        rallies.add(rally);
+    }
 
     /*
      * Takes in the last rally to occur and will revert the the GameManager
@@ -109,7 +125,6 @@ public class GameManager implements Parcelable {
      * Will update all (6) fields accordingly
      */
     public void updateGameManager(String breakOrNot){
-        assert(nextServer!=-1);
         if(breakOrNot.equals("break")){
             scores[servingTeam]++;
             receiver =  getTeammate(receiver);
@@ -141,7 +156,9 @@ public class GameManager implements Parcelable {
     }
 
     // 0->1, 1->0, 2->3, 3->2
-    public int getTeammate(int player){return (player/2) * 2 + player%2^1;}
+    public int getTeammate(int player){
+        return player == -1 ? -1 : (player/2) * 2 + player%2^1;
+    }
 
     public void changeAcross(){
         playerAcross[0] = getTeammate(playerAcross[0]);

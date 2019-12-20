@@ -3,7 +3,8 @@ package com.example.roundnetstattracker.enums;
 public enum States {
     SERVING("serving"),
     RECEIVING("receiving"),
-    ERROR("error");
+    ERROR("error"),
+    SETUP("setup");
 
     private String state;
 

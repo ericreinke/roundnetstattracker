@@ -203,7 +203,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_selector"
         android:onClick="plusScoreAOnClick"
-        android:text="+1 Score"
+        android:text="Ace /\nPutaway"
         android:textColor="@drawable/blue_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/errorButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline" />
@@ -216,7 +216,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_selector"
         android:onClick="plusScoreBOnClick"
-        android:text="+1 Score"
+        android:text="Ace /\nPutaway"
         android:textColor="@drawable/red_text_selector"
         app:layout_constraintBottom_toTopOf="@+id/errorButton"
         app:layout_constraintStart_toStartOf="@+id/guideline" />

@@ -27,6 +27,7 @@ public class RecordGameActivity extends AppCompatActivity {
     private final String SERVING = States.SERVING.getState();
     private final String RECEIVING = States.RECEIVING.getState();
     private final String ERROR = States.ERROR.getState();
+    private final String SETUP = States.SETUP.getState();
 
     TextView teamATextView;
     TextView teamBTextView;
@@ -47,7 +48,8 @@ public class RecordGameActivity extends AppCompatActivity {
     Button [] allButtons;
     Game myGame;
     StringBuilder currentRally;
-    String state = SERVING ;
+    String state = SERVING;
+    List<Integer> setupList = new ArrayList<>();
 
     TeamGameProfile teamAProfile;
     TeamGameProfile teamBProfile;
@@ -81,7 +83,7 @@ public class RecordGameActivity extends AppCompatActivity {
         scoreBButton = findViewById(R.id.plusScoreBButton);
         hinderButton = findViewById(R.id.hinderButton);
         allButtons = new Button [] {teamAButton1, teamAButton2, teamBButton1, teamBButton2,
-                errorButton, serviceFaultButton, scoreAButton, scoreBButton};
+                errorButton, serviceFaultButton, scoreAButton, scoreBButton,hinderButton};
         saveButton = findViewById(R.id.saveButton);
         rallyTextView = findViewById(R.id.rallyDebugTextView);
 
@@ -96,9 +98,10 @@ public class RecordGameActivity extends AppCompatActivity {
 
         assert(myGame!=null);
 
-        myGame.gm.populateGameManager(0, 1, 2, 3);
-        myGame.gm.setNextServer(2);
-        disableAllButtonsBut(myGame.gm.getServer());
+        //myGame.gm.populateGameManager(0, 1, 2, 3);
+        //myGame.gm.setNextServer(2)
+
+        disableAllButtonsBut(0, 1, 2, 3);
 
         teamATextView.setText(teamAProfile.teamName);
         teamBTextView.setText(teamBProfile.teamName);
@@ -108,13 +111,12 @@ public class RecordGameActivity extends AppCompatActivity {
         teamAButton2.setText(playerA2Profile.playerName);
         teamBButton1.setText(playerB1Profile.playerName);
         teamBButton2.setText(playerB2Profile.playerName);
-        instructionTextView.setText("");
+
+        setAndUpdateState(SETUP);
+        instructionTextView.setText("Tap in order: First server, First receiver, Next server");
 
         currentRally = new StringBuilder();
         currentRally.append("S");
-        state = "serving";
-
-
     }
 
     public void button1AOnClick(View view){
@@ -137,7 +139,7 @@ public class RecordGameActivity extends AppCompatActivity {
         currentRally.append("E");
         state = ERROR;
         disableAllButtonsBut(0,1,2,3);
-
+        instructionTextView.setText("Tap on the player who made the error");
         rallyTextView.setText(currentRally.toString());
     }
     public void serviceFaultOnClick(View view){
@@ -156,6 +158,15 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     private void onPlayerButtonClick(int player){
+        if(state.equals(SETUP)){
+            System.out.println("adding setup: " + player);
+            setupList.add(player);
+            if(setupList.size() == 3){
+                myGame.gm.populateGameManager(setupList.get(0), setupList.get(1), setupList.get(2));
+                setAndUpdateState(SERVING);
+            }
+            return;
+        }
         hinderButton.setText("Hinder\n(Cancel current rally)");
         currentRally.append(player);
         enableAllButtonsBut(player, myGame.gm.checkMustChangePossesion(currentRally.toString()) ?
@@ -174,14 +185,16 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
     public void hinderOnClick(View view){
-        if(myGame.gm.getAScore() == 0 && myGame.gm.getBScore() == 0){
-            Toast toast = new Toast(getApplicationContext());
-            toast.makeText(this.getApplicationContext(),"No more rallies to undo",Toast.LENGTH_LONG).show();
-            return;
-        }
-        if(state==SERVING){
-            myGame.gm.reverseGameManager(); // This removes the last rally and reverses gm
-            instructionTextView.setText("Removed previous rally");
+        if(state.equals(SERVING)){
+            if(myGame.gm.getAScore() == 0 && myGame.gm.getBScore() == 0){
+                Toast toast = new Toast(getApplicationContext());
+                toast.makeText(this.getApplicationContext(),"No more rallies to undo",Toast.LENGTH_LONG).show();
+                return;
+            }
+            else{
+                myGame.gm.reverseGameManager(); // This removes the last rally and reverses gm
+                instructionTextView.setText("Removed previous rally");
+            }
         }
         else{
             instructionTextView.setText("Cancelled current rally");
@@ -218,7 +231,8 @@ public class RecordGameActivity extends AppCompatActivity {
     }
 
 
-    /* Note about the following 2 methods:  getBreakString(int) takes the int of a player who is NOT
+    /*
+     * Note about the following 2 methods:  getBreakString(int) takes the int of a player who is NOT
      * scoring.  So in this case we are just passing the opponent (2 is not on A, 0 is not on B)
      * Its sketchy and getBreakString() should probably be renamed.
      *
@@ -293,7 +307,9 @@ public class RecordGameActivity extends AppCompatActivity {
             allPGP[lodg.get(i)].defensiveGet++;
         }
 
+
         myGame.gm.updateGameManager(breakString);
+        setAndUpdateState(SERVING);
         teamAScoreTextView.setText(Integer.toString(myGame.gm.getAScore()));
         teamBScoreTextView.setText(Integer.toString(myGame.gm.getBScore()));
         instructionTextView.setText("");
@@ -301,7 +317,6 @@ public class RecordGameActivity extends AppCompatActivity {
         log.info("Added rally: "+ currentRally);
         currentRally.setLength(0);
         currentRally.append("S");
-        setAndUpdateState(SERVING);
         hinderButton.setText("Undo last rally");
     }
 
@@ -330,8 +345,11 @@ public class RecordGameActivity extends AppCompatActivity {
         if(state.equals(SERVING)){
             disableAllButtonsBut(myGame.gm.getServer());
         }
+        else if(state.equals(SETUP)){
+            disableAllButtonsBut(0,1,2,3);
+        }
         else if(state.equals(RECEIVING)){
-            disableAllButtonsBut(myGame.gm.getReceiver(), 5, myGame.gm.getServingTeam()+6);
+            disableAllButtonsBut(myGame.gm.getReceiver(), 5, myGame.gm.getServingTeam()+6,8);
         }
         else if(state.equals(ERROR)){
             disableAllButtonsBut(0, 1, 2, 3);
