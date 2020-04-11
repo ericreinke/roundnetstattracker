@@ -20,11 +20,13 @@ import java.util.List;
 public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerViewAdapter.ViewHolder> {
 
     private List<Team> teams;
+    private List<String> allPlayerNames;
     private Context context;
 
-    public TeamRecyclerViewAdapter(Context context, List<Team> teams){
+    public TeamRecyclerViewAdapter(Context context, List<Team> teams, List<String> allPlayerNames){
         this.context = context;
         this.teams = teams;
+        this.allPlayerNames = allPlayerNames;
     }
 
     @NonNull
@@ -38,6 +40,8 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
     @Override
     public void onBindViewHolder(@NonNull TeamRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.teamName.setText(teams.get(position).name);
+        holder.player1Name.setText(allPlayerNames.get(position*2));
+        holder.player2Name.setText(allPlayerNames.get(position*2+1));
 
         final int copy = position;
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {

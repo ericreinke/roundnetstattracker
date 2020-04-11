@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.roundnetstattracker.model.Player;
 import com.example.roundnetstattracker.model.Team;
 import com.example.roundnetstattracker.recycler.SelectTeamRecyclerViewAdapter;
 import com.example.roundnetstattracker.room.AppDatabase;
@@ -20,6 +21,7 @@ import java.util.List;
 public class SelectTeamActivity extends AppCompatActivity implements OnRecyclerViewTeamClickListener {
 
     List<Team> allTeams;
+    List<String> allPlayerNames;
     SelectTeamRecyclerViewAdapter adapter;
     RecyclerView recyclerView;
     int teamNumber;
@@ -32,9 +34,10 @@ public class SelectTeamActivity extends AppCompatActivity implements OnRecyclerV
         setSupportActionBar(toolbar);
 
         allTeams = new ArrayList<>();
+        allPlayerNames = new ArrayList<>();
         recyclerView = findViewById(R.id.selectTeamRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SelectTeamRecyclerViewAdapter(this, allTeams, this);
+        adapter = new SelectTeamRecyclerViewAdapter(this, allTeams, allPlayerNames, this);
         recyclerView.setAdapter(adapter);
         teamNumber = getIntent().getIntExtra("TEAM_NUMBER", -1);
 
@@ -50,7 +53,16 @@ public class SelectTeamActivity extends AppCompatActivity implements OnRecyclerV
                 // Not sure why, but we can't do `allTeams = allTeamsTemp' or
                 // 'allTeams = db.tD().getAll()`  adding 1 by 1 works
                 allTeams.clear();
+                allPlayerNames.clear();
                 allTeams.addAll(allTeamsTemp);
+                for(int i = 0; i < allTeams.size(); i++){
+                    Player p;
+                    System.out.println(allTeams.get(i).player1Id);
+                    p = db.playerDao().getPlayer(allTeams.get(i).player1Id);
+                    allPlayerNames.add(p.name);
+                    p = db.playerDao().getPlayer(allTeams.get(i).player2Id);
+                    allPlayerNames.add(p.name);
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

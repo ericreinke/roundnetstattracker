@@ -21,6 +21,7 @@ import java.util.List;
 public class TeamsActivity extends AppCompatActivity{
 
     List<Team> allTeams;
+    List<String> allPlayerNames;
     TeamRecyclerViewAdapter adapter;
     RecyclerView recyclerView;
 
@@ -32,9 +33,10 @@ public class TeamsActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
         allTeams = new ArrayList<>();
+        allPlayerNames = new ArrayList<>();
         recyclerView = findViewById(R.id.teamRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new TeamRecyclerViewAdapter(this, allTeams);
+        adapter = new TeamRecyclerViewAdapter(this, allTeams, allPlayerNames);
         recyclerView.setAdapter(adapter);
 
         updateTeamsRecycler();
@@ -61,7 +63,16 @@ public class TeamsActivity extends AppCompatActivity{
                 List<Team> allTeamsTemp = db.teamDao().getAll();
                 //Not sure why, but we can't do `allTeams = allTeamsTemp`  adding 1 by 1 works
                 allTeams.clear();
+                allPlayerNames.clear();
                 allTeams.addAll(allTeamsTemp);
+                for(int i = 0; i < allTeams.size(); i++){
+                    Player p;
+                    System.out.println(allTeams.get(i).player1Id);
+                    p = db.playerDao().getPlayer(allTeams.get(i).player1Id);
+                    allPlayerNames.add(p.name);
+                    p = db.playerDao().getPlayer(allTeams.get(i).player2Id);
+                    allPlayerNames.add(p.name);
+                }
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

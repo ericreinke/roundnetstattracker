@@ -18,12 +18,14 @@ import java.util.List;
 
 public class SelectTeamRecyclerViewAdapter extends RecyclerView.Adapter<SelectTeamRecyclerViewAdapter.ViewHolder> {
 
-    private List<Team> teams;
+    private List<Team> allTeams;
+    private List<String> allPlayerNames;
     private Context context;
     private OnRecyclerViewTeamClickListener onRecyclerViewTeamClickListener;
 
-    public SelectTeamRecyclerViewAdapter (Context context, List<Team> teams, OnRecyclerViewTeamClickListener onRecyclerViewTeamClickListener){
-        this.teams = teams;
+    public SelectTeamRecyclerViewAdapter (Context context, List<Team> allTeams, List<String> allPlayerNames, OnRecyclerViewTeamClickListener onRecyclerViewTeamClickListener){
+        this.allTeams = allTeams;
+        this.allPlayerNames = allPlayerNames;
         this.context = context;
         this.onRecyclerViewTeamClickListener = onRecyclerViewTeamClickListener;
     }
@@ -38,20 +40,22 @@ public class SelectTeamRecyclerViewAdapter extends RecyclerView.Adapter<SelectTe
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.teamName.setText(teams.get(position).name);
+        holder.teamName.setText(allTeams.get(position).name);
+        holder.player1Name.setText(allPlayerNames.get(position*2));
+        holder.player2Name.setText(allPlayerNames.get(position*2+1));
 
         final int copy = position;
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onRecyclerViewTeamClickListener.onTeamClick(teams.get(copy));
+                onRecyclerViewTeamClickListener.onTeamClick(allTeams.get(copy));
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return teams.size();
+        return allTeams.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
