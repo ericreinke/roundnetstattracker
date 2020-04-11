@@ -71,7 +71,7 @@ public class GameManager implements Parcelable {
         return receivingTeam;
     }
 
-    public void populateGameManager(int server, int receiver, int nextServer){
+    public void populateGameManager(int server, int receiver){
         int receiverTeammate = getTeammate(receiver);
         int serverTeammate = getTeammate(server);
 
@@ -81,7 +81,7 @@ public class GameManager implements Parcelable {
         this.receiver = receiver;
         this.servingTeam = server/2;
         this.receivingTeam = receiver/2;
-        this.nextServer = nextServer;
+        this.nextServer = getTeammate(receiver);
         playerAcross[server] = receiver;
         playerAcross[receiver] = server;
         playerAcross[serverTeammate] = receiverTeammate;

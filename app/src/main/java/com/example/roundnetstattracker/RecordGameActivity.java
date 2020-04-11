@@ -73,15 +73,15 @@ public class RecordGameActivity extends AppCompatActivity {
         instructionTextView = findViewById(R.id.instructionTextView);
         teamAScoreTextView = findViewById(R.id.teamAScoreTextView);
         teamBScoreTextView = findViewById(R.id.teamBScoreTextView);
-        teamAButton1 = findViewById(R.id.teamAButton1);
-        teamBButton1 = findViewById(R.id.teamBButton1);
-        teamAButton2 = findViewById(R.id.teamAButton2);
-        teamBButton2 = findViewById(R.id.teamBButton2);
-        errorButton = findViewById(R.id.errorButton);
-        serviceFaultButton = findViewById(R.id.serviceFaultButton);
-        scoreAButton = findViewById(R.id.plusScoreAButton);
-        scoreBButton = findViewById(R.id.plusScoreBButton);
-        hinderButton = findViewById(R.id.hinderButton);
+        teamAButton1 = findViewById(R.id.teamAButton1);             //0
+        teamBButton1 = findViewById(R.id.teamBButton1);             //1
+        teamAButton2 = findViewById(R.id.teamAButton2);             //2
+        teamBButton2 = findViewById(R.id.teamBButton2);             //3
+        errorButton = findViewById(R.id.errorButton);               //4
+        serviceFaultButton = findViewById(R.id.serviceFaultButton); //5
+        scoreAButton = findViewById(R.id.plusScoreAButton);         //6
+        scoreBButton = findViewById(R.id.plusScoreBButton);         //7
+        hinderButton = findViewById(R.id.hinderButton);             //8
         allButtons = new Button [] {teamAButton1, teamAButton2, teamBButton1, teamBButton2,
                 errorButton, serviceFaultButton, scoreAButton, scoreBButton,hinderButton};
         saveButton = findViewById(R.id.saveButton);
@@ -112,8 +112,8 @@ public class RecordGameActivity extends AppCompatActivity {
         teamBButton1.setText(playerB1Profile.playerName);
         teamBButton2.setText(playerB2Profile.playerName);
 
+        instructionTextView.setText("");
         setAndUpdateState(SETUP);
-        instructionTextView.setText("Tap in order: First server, First receiver, Next server");
 
         currentRally = new StringBuilder();
         currentRally.append("S");
@@ -161,9 +161,12 @@ public class RecordGameActivity extends AppCompatActivity {
         if(state.equals(SETUP)){
             System.out.println("adding setup: " + player);
             setupList.add(player);
-            if(setupList.size() == 3){
-                myGame.gm.populateGameManager(setupList.get(0), setupList.get(1), setupList.get(2));
+            if(setupList.size() == 2){
+                myGame.gm.populateGameManager(setupList.get(0), setupList.get(1));
                 setAndUpdateState(SERVING);
+            }
+            else{
+                setAndUpdateState(SETUP);
             }
             return;
         }
@@ -179,7 +182,7 @@ public class RecordGameActivity extends AppCompatActivity {
             // We added the player already, at the start of this button method
             currentRally.append("D");
             currentRally.append((player/2)^1);
-            rallyOver(getBreakString(player));
+            rallyOver(getBreakString(player)); // calls setAndUpdateState
         }
         rallyTextView.setText(currentRally.toString());
     }
@@ -204,8 +207,6 @@ public class RecordGameActivity extends AppCompatActivity {
         setAndUpdateState(SERVING);
         teamAScoreTextView.setText(Integer.toString(myGame.gm.getAScore()));
         teamBScoreTextView.setText(Integer.toString(myGame.gm.getBScore()));
-
-
     }
 
     public void saveGame(View view){
@@ -341,12 +342,19 @@ public class RecordGameActivity extends AppCompatActivity {
     public void setAndUpdateState(String newState){
         log.info("Changing state from " + state + " to " + newState);
         state = newState;
-
         if(state.equals(SERVING)){
-            disableAllButtonsBut(myGame.gm.getServer());
+            disableAllButtonsBut(myGame.gm.getServer(),8);
         }
         else if(state.equals(SETUP)){
-            disableAllButtonsBut(0,1,2,3);
+            if(setupList.size() == 0){
+                disableAllButtonsBut(0,1,2,3);
+                instructionTextView.setText("SETUP: Please select who is serving first");
+            }
+            else if(setupList.size() == 1){
+                int receivingTeam = (setupList.get(0)/2)^1;
+                disableAllButtonsBut(receivingTeam*2, receivingTeam*2 + 1);
+                instructionTextView.setText("SETUP: Please select who is receiving first");
+            }
         }
         else if(state.equals(RECEIVING)){
             disableAllButtonsBut(myGame.gm.getReceiver(), 5, myGame.gm.getServingTeam()+6,8);
