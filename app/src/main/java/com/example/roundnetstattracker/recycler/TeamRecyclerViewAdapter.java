@@ -52,7 +52,7 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
                 context.startActivity(intent);
 
             }
-        });
+        });//
     }
 
     @Override
