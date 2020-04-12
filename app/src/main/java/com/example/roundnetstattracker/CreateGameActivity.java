@@ -104,6 +104,23 @@ public class CreateGameActivity extends AppCompatActivity {
     }
 
     public void doneOnClick (View view){
+        if(teamA == null || teamB == null){
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"Missing one or more team data",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(teamA.uid == teamB.uid){
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"Team 1 and 2 are identical",Toast.LENGTH_LONG).show();
+            return;
+        }
+        //Validation in CreateTeamActivity ensures players on a team are unique
+        if(pA1.uid.equals(pB1.uid) || pA1.uid.equals(pB2.uid) || pA2.uid.equals(pB1.uid)|| pA2.uid.equals(pB2.uid)){
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"One or more players are both teams",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         PlayerGameProfile ppA1 = new PlayerGameProfileBuilder()
                 .withPlayerId(pA1.uid)
                 .withPlayerName(pA1.name)

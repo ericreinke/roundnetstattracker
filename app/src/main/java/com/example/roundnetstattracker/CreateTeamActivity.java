@@ -75,6 +75,11 @@ public class CreateTeamActivity extends AppCompatActivity {
             toast.makeText(this.getApplicationContext(),"Missing fields",Toast.LENGTH_LONG).show();
             return;
         }
+        if(player1Id.equals(player2Id)){
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(this.getApplicationContext(),"Cannot create team with identical players",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         new Thread(new Runnable() {
             public void run() {
