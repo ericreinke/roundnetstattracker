@@ -103,7 +103,7 @@ public class CreateGameActivity extends AppCompatActivity {
         }
     }
 
-    public void doneOnClick (View view){//
+    public void doneOnClick (View view){
         if(teamA == null || teamB == null){
             Toast toast = new Toast(getApplicationContext());
             toast.makeText(this.getApplicationContext(),"Missing one or more team data",Toast.LENGTH_LONG).show();
