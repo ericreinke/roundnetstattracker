@@ -128,12 +128,15 @@ public class GameDetailsActivity extends AppCompatActivity {
         for(int i = 0; i < allPGP.length; i++){
             nameCells[i].setText(allPGP[i].playerName);
             serveCells[i].setText(String.format(Locale.getDefault(), "%.0f%% : %.0f%%\n%.0f%% : %.0f%%",
-                    100*((float)1 - (float)allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalFirstServe)),
-                    100*((float)1 - (float)(allPGP[i].firstServeFault + allPGP[i].secondServeFault)/
+                    allPGP[i].totalFirstServe == 0 ? 0 :
+                            100*((float)1 - (float)allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalFirstServe)),
+                    (allPGP[i].totalFirstServe + allPGP[i].totalSecondServe) == 0 ? 0 :
+                            100*((float)1 - (float)(allPGP[i].firstServeFault + allPGP[i].secondServeFault)/
                             Math.max(1,(allPGP[i].totalFirstServe + allPGP[i].totalSecondServe))),
-                    100*((float)1 - (float)allPGP[i].firstServeFault/Math.max(1, allPGP[i].totalFirstServe)),
-                    100*((float)1 - (float)allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalSecondServe))));
-            System.out.println(i + " " + allPGP[i].putAwaySuccess + " " + Math.max(1, (allPGP[i].putAwaySuccess + allPGP[i].putAwayFailure)));
+                    allPGP[i].totalFirstServe == 0 ? 0 :
+                            100*((float)1 - (float)allPGP[i].firstServeFault/Math.max(1, allPGP[i].totalFirstServe)),
+                    allPGP[i].totalSecondServe == 0 ? 0 :
+                            100*((float)1 - (float)allPGP[i].secondServeFault/Math.max(1, allPGP[i].totalSecondServe))));
             putawayCells[i].setText(String.format(Locale.getDefault(),"%.0f%%",100* (float)allPGP[i].putAwaySuccess/
                     Math.max(1, (allPGP[i].putAwaySuccess + allPGP[i].putAwayFailure))));
             aceCells[i].setText(String.format(Locale.getDefault(), "%d : %d", allPGP[i].ace, allPGP[i].aced));
